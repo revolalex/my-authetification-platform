@@ -1,0 +1,11 @@
+{
+  "name": "my_authentification_platform",
+  "version": "0.1.0",
+  "description": "my first authentification platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "revolalex@gmail.com",
+  "license": "ISC"
+}
