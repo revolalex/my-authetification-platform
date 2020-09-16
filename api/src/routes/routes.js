@@ -1,8 +1,15 @@
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 const appRouter = function(app, connection) {
   app.post("/sign-up", function(req, res) {
     var name = req.body.name;
     var email = req.body.email;
-    var pass = req.body.password;
+    var passTemp = req.body.password;
+
+    // hash the password 
+    let pass = bcrypt.hashSync(passTemp, saltRounds);
+
     const userObject = {
       name,
       email,
@@ -18,12 +25,16 @@ const appRouter = function(app, connection) {
     res.send(name);
   });
 
+
+
   app.post("/sign-in", function(req, res) {
     let email = req.body.email;
     let pass = req.body.password;
-  
+
+    
+
+
     let sql = "SELECT * FROM users WHERE email = ? AND pass = ?";
-  
     connection.query(sql, [email, pass], function(err, results, fields) {
       if (err) throw err;
       var users = JSON.parse(JSON.stringify(results));
@@ -35,7 +46,10 @@ const appRouter = function(app, connection) {
       }
     });
   });
-
 };
 
 module.exports = appRouter;
+
+
+
+
