@@ -1,9 +1,10 @@
 const bcrypt = require("bcrypt");
+const { json } = require("body-parser");
+const e = require("express");
 const saltRounds = 10;
 
-
 const appRouter = async function(app, connection) {
-  // add an user ==> /sign-up
+  /*********************** add an user ==> /sign-up *************************/
   app.post("/sign-up", function(req, res) {
     let name = req.body.name;
     let email = req.body.email;
@@ -24,8 +25,7 @@ const appRouter = async function(app, connection) {
     });
     res.send(name);
   });
-
-  // Check if an user is register ==> /sign-in
+  /****************** Check if an user is register ==> /sign-in **********************/
   app.post("/sign-in", function(req, res) {
     let email = req.body.email;
     let pass = req.body.password;
@@ -52,7 +52,7 @@ const appRouter = async function(app, connection) {
     });
   });
 
-  // get all database ==> /all
+  /****************** get all database ==> /all **********************/
   app.get("/all", function(req, res) {
     let getAll = "SELECT * FROM authentification.users";
     connection.query(getAll, function(err, results) {
@@ -61,7 +61,7 @@ const appRouter = async function(app, connection) {
     });
   });
 
-  // get all emails ==> /emails
+  /****************** get all emails ==> /emails **********************/
   app.get("/emails", function(req, res) {
     let getAllEmail = "SELECT email FROM authentification.users";
     connection.query(getAllEmail, function(err, results) {
@@ -70,7 +70,7 @@ const appRouter = async function(app, connection) {
     });
   });
 
-  // get all names ==> /names
+  /****************** get all names ==> /names **********************/
   app.get("/names", function(req, res) {
     let getAllNames = "SELECT name FROM authentification.users";
     connection.query(getAllNames, function(err, results) {
@@ -79,7 +79,7 @@ const appRouter = async function(app, connection) {
     });
   });
 
-  // delete user with this email ==> /users/:email
+  /************ delete user with this email ==> /users/:email **************/
   app.delete("/users/:email", function(req, res) {
     let email = req.params.email;
     let usersMailToDelete =
@@ -87,34 +87,96 @@ const appRouter = async function(app, connection) {
     connection.query(usersMailToDelete, [email], function(err, results) {
       if (err) throw err;
       // handle unknown user
-      if ((results.affectedRows > 0)) {
+      if (results.affectedRows > 0) {
         console.log(results.affectedRows);
         res.send("Users removed");
-      }else {
+      } else {
         res.send("Unknown users");
       }
     });
   });
 
-  // create a database ==> /createDB
+  /****************** create a database ==> /createDB **********************/
   app.post("/createDB", function(req, res) {
-    let dbName = "'" + req.body.dbName +  "'";
-    let createDatabase = "CREATE DATABASE ?";
-    connection.query(createDatabase, [dbName], function(err, results) {
+    let dbName = req.body.dbName;
+    let createDatabase = "CREATE DATABASE " + dbName;
+    connection.query(createDatabase, function(err, results) {
+      if (err) throw err;
+      res.send("Sucess database  '" + dbName + "' created");
+    });
+  });
+
+  /****************** delete database ==> /db/:dbName **********************/
+  app.delete("/db/:dbName", function(req, res) {
+    let dbName = req.params.dbName;
+    console.log(dbName);
+    let dbToDelete = "DROP DATABASE " + dbName;
+    connection.query(dbToDelete, function(err, results) {
+      if (err) throw err;
+      res.send("Success Database deleted: " + dbName);
+    });
+  });
+
+  /****************** update email ==> /users/:email **********************/
+  app.put("/users/:email", function(req, res) {
+    let email = JSON.stringify(req.params.email);
+    let specify = JSON.stringify(req.body.specify);
+
+    let updateEmail =
+      "UPDATE authentification.users SET email = " +
+      specify +
+      "WHERE email =" +
+      email +
+      ";";
+    connection.query(updateEmail, function(err, results) {
       if (err) throw err;
       res.send(results);
     });
   });
 
-  // delete database ==> /db/:dbName
-  app.delete("/db/:dbName", function(req, res) {
-    let dbName = req.params.dbName;
-    console.log(dbName);
-    let dbToDelete = "DROP DATABASE ?";
-    connection.query(dbToDelete, [dbName], function(err, results) {
+  /****************** create Table and columns ==> /createTable **********************/
+  // POST /createTable {nameOfTable: String, columns: ArrayOfObjects}
+  app.post("/createTable", function(req, res) {
+    let nameOfTable = req.body.nameOfTable;
+    let columns = req.body.columns;
+    let columns2 = req.body.columns2;
+    let createTableCol =
+      "CREATE TABLE " +
+      nameOfTable +
+      " (" +
+      columns +
+      " VARCHAR(255)," +
+      columns2 +
+      " VARCHAR(255))";
+    connection.query(createTableCol, function(err, results) {
       if (err) throw err;
       res.send(results);
     });
+  });
+
+
+
+
+
+
+
+  // PUT /updateTable {columns: ArrayOfObjects}
+  app.put("/updateTable", function(req, res) {
+    let columns = req.body.columns
+    let columns2 = req.body.columns2
+    let update = "UPDATE authentification.users SET"
+    
+//     UPDATE employees 
+//      SET 
+//     lastname = 'Hill',
+//     email = 'mary.hill@classicmodelcars.com'
+//      WHERE
+//     employeeNumber = 1056;
+    connection.query(update, function(err, res){
+      if (err) throw err;
+      res.send(results);
+
+    })
   });
 };
 
