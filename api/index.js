@@ -2,6 +2,7 @@
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
+var cors = require("cors");
 
 /************************** MidlleWare ****************************/
 app.use(express.urlencoded({ extended: false }));
@@ -9,6 +10,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 /************************** connection mysql ****************************/
 const connection = require('./src/database/mysql')

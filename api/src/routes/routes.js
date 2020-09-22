@@ -10,12 +10,14 @@ const appRouter = async function(app, connection) {
     let email = req.body.email;
     let passTemp = req.body.password;
     // hash the password
+
     let pass = bcrypt.hashSync(passTemp, saltRounds);
     const userObject = {
-      name,
-      email,
-      pass,
+      name: name,
+      email: email,
+      pass: pass,
     };
+    console.log(userObject);
     connection.query("INSERT INTO users SET ?", userObject, function(
       err,
       result
@@ -52,6 +54,19 @@ const appRouter = async function(app, connection) {
     });
   });
 
+
+
+
+
+
+
+
+
+
+
+
+
+  
   /****************** get all database ==> /all **********************/
   app.get("/all", function(req, res) {
     let getAll = "SELECT * FROM authentification.users";
