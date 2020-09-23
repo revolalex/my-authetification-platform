@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <MyJumbotron/>
+    <router-view></router-view>
+    <!-- <MyJumbotron /> -->
+    
   </div>
 </template>
 
 <script>
-import MyJumbotron from './components/MyJumbotron'
+// import MyJumbotron from './components/MyJumbotron'
 
 export default {
   name: 'App',
   components: {
-    MyJumbotron
+    // MyJumbotron
   }
 }
 </script>

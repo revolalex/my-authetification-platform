@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 var cors = require("cors");
+const jwt = require('jsonwebtoken');
 
 /************************** MidlleWare ****************************/
 app.use(express.urlencoded({ extended: false }));
@@ -10,12 +11,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   next();
+// });
+// CORS middleware
+app.use(cors());
+const allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', '*');
+  res.header('Access-Control-Allow-Headers', '*');
   next();
-});
+}
+
+app.use(allowCrossDomain)
 
 /************************** connection mysql ****************************/
 const connection = require('./src/database/mysql')

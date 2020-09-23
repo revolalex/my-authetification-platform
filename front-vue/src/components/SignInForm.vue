@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form @submit="onSubmit" v-if="show">
       <!-- email -->
       <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
         <b-form-input
@@ -18,13 +18,11 @@
       </b-form-group>
       <!-- button -->
       <b-button type="submit" variant="success">Sign In</b-button>
-
     </b-form>
 
     <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
     </b-card>
-
   </div>
 </template>
 
@@ -43,20 +41,28 @@ export default {
   },
   methods: {
     onSubmit(evt) {
+      let that = this;
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
-      axios.post(`http://localhost:3000/sign-in/`, this.form);
-    },
-    onReset(evt) {
-      evt.preventDefault();
-      // Reset our form values
-      this.form.email = "";
-      this.form.password = "";
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
+      axios
+        .post(`http://localhost:3000/sign-in/`, this.form)
+        .then(function (response) {
+          if (response.data == "you are authenticated") {
+            console.log("success");
+            // this.$store.state.showDashboard = true;
+            that.$router.push("Dashboard");
+          } else {
+            alert("Error password or email incorrect");
+          }
+          that.form.email = "";
+          that.form.password = "";
+          that.show = false;
+          that.$nextTick(() => {
+            that.show = true;
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
   },
 };

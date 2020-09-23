@@ -1,9 +1,9 @@
-// import SignInForm from "./components/SignInForm";
-// import SignUpForm from "./components/SignUpForm";
+import Dashboard from "./components/Dashboard";
+import MyJumbotron from "./components/MyJumbotron";
 
-// const routes = [
-//   { path: "/SignIn", component: SignInForm },
-//   { path: "/SignUp", component: SignUpForm }
-// ];
+const routes = [
+    { path: "/dashboard", name: Dashboard, component: Dashboard },
+    { path: "/", name: MyJumbotron, component: MyJumbotron }
+];
 
-// export default routes;
+export default routes;
