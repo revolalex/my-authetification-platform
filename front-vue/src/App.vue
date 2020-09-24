@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div>
-      <router-link to="/">H</router-link>
-      <router-link to="/dashboard">D</router-link>
+    <div id="liens">
+      <router-link to="/">Home</router-link>
+      <router-link to="/dashboard">Dashboard</router-link>
     </div>
     <router-view></router-view>
     <!-- <MyJumbotron /> -->
@@ -21,4 +21,11 @@ export default {
 </script>
 
 <style>
+#liens{
+  font-size: 2em;
+  display: flex;
+  text-align: center;
+  justify-content: space-evenly;
+  background: rgb(235, 232, 232);
+}
 </style>

@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const { json } = require("body-parser");
 const e = require("express");
 const jwt = require("jsonwebtoken");
-const config = require("./config")
+const config = require("./config");
 
 const saltRounds = 10;
 
@@ -27,9 +27,11 @@ const appRouter = async function(app, connection) {
       if (err) throw err;
       console.log("1 record inserted");
       /******* TOKEN *******/
-      let token = jwt.sign({ email: email }, config.secret, {expiresIn: 86400});
-      console.log("token:",token);
-      res.status(201).send({auth: true, token: token, user: userObject});
+      let token = jwt.sign({ email: email }, config.secret, {
+        expiresIn: 86400,
+      });
+      console.log("token:", token);
+      res.status(201).send({ auth: true, token: token, user: userObject });
     });
   });
 
@@ -45,7 +47,9 @@ const appRouter = async function(app, connection) {
       console.log("mail ==>", results);
 
       /******* TOKEN *******/
-      let token = jwt.sign({ email: email }, config.secret, {expiresIn: 86400});
+      let token = jwt.sign({ email: email }, config.secret, {
+        expiresIn: 86400,
+      });
 
       // handle email error
       if (results.length < 1) {
@@ -55,7 +59,7 @@ const appRouter = async function(app, connection) {
         // handle password error
         bcrypt.compare(pass, hash, function(err, result) {
           if (result == true) {
-            res.status(200).send({auth: true, token: token, email: email});
+            res.status(200).send({ auth: true, token: token, email: email });
           } else {
             res.status(401).send("Sorry, password incorrect");
           }
@@ -63,12 +67,6 @@ const appRouter = async function(app, connection) {
       }
     });
   });
-
-
-
-
-
-
 
   /****************** get all database ==> /all **********************/
   app.get("/all", function(req, res) {
