@@ -39,17 +39,21 @@ export default {
       show: true,
     };
   },
+  // mounted: function (){console.log(this.$store.state.token)},
   methods: {
+
     onSubmit(evt) {
       let that = this;
       evt.preventDefault();
       axios
         .post(`http://localhost:3000/sign-in/`, this.form)
         .then(function (response) {
-          if (response.data == "you are authenticated") {
+          console.log(response);
+          if (response.data.auth == true) {
             console.log("success");
-            // this.$store.state.showDashboard = true;
-            that.$router.push("Dashboard");
+            that.$store.dispatch("ADD_TOKEN", response.data.token);
+            that.$router.push("/Dashboard");
+            
           } else {
             alert("Error password or email incorrect");
           }

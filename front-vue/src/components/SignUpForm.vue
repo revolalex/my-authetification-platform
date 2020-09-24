@@ -1,15 +1,26 @@
 <template>
   <div>
-    <h2 v-if="reponseStatut == true">You have been register, go Sign-in now !</h2>
+    <h2 v-if="reponseStatut == true">
+      You have been register, go Sign-in now !
+    </h2>
     <br />
     <b-form @submit="onSubmit" v-if="show">
       <!-- name -->
       <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
-        <b-form-input id="input-2" v-model="form.name" required placeholder="Enter name"></b-form-input>
+        <b-form-input
+          id="input-2"
+          v-model="form.name"
+          required
+          placeholder="Enter name"
+        ></b-form-input>
       </b-form-group>
 
       <!-- email -->
-      <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
+      <b-form-group
+        id="input-group-1"
+        label="Email address:"
+        label-for="input-1"
+      >
         <b-form-input
           id="input-1"
           v-model="form.email"
@@ -20,8 +31,17 @@
       </b-form-group>
 
       <!-- password -->
-      <b-form-group id="input-group-2" label="Your Password:" label-for="input-2">
-        <b-form-input id="input-2" v-model="form.password" required placeholder="Enter password"></b-form-input>
+      <b-form-group
+        id="input-group-2"
+        label="Your Password:"
+        label-for="input-2"
+      >
+        <b-form-input
+          id="input-2"
+          v-model="form.password"
+          required
+          placeholder="Enter password"
+        ></b-form-input>
       </b-form-group>
       <!-- button -->
       <b-button type="submit" variant="success">Sign Up</b-button>
@@ -52,14 +72,17 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      console.log(this.form.name);
       let that = this;
       axios
         .post(`http://localhost:3000/sign-up`, this.form)
         .then(function (response) {
-          if (response.status == 200) {
+          console.log("response", response);
+          if (response.status == 201) {
+            // will allow the ok sentence to be visible
             that.reponseStatut = true;
+
           }
+          // reset the input
           that.form.name = "";
           that.form.email = "";
           that.form.password = "";

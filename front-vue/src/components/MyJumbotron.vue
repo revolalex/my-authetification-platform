@@ -23,5 +23,6 @@ export default {
 <style>
 #center {
   text-align: center;
+  height: 100vh;
 }
 </style>

@@ -1,6 +1,9 @@
 const bcrypt = require("bcrypt");
 const { json } = require("body-parser");
 const e = require("express");
+const jwt = require("jsonwebtoken");
+const config = require("./config")
+
 const saltRounds = 10;
 
 const appRouter = async function(app, connection) {
@@ -10,7 +13,6 @@ const appRouter = async function(app, connection) {
     let email = req.body.email;
     let passTemp = req.body.password;
     // hash the password
-
     let pass = bcrypt.hashSync(passTemp, saltRounds);
     const userObject = {
       name: name,
@@ -24,9 +26,13 @@ const appRouter = async function(app, connection) {
     ) {
       if (err) throw err;
       console.log("1 record inserted");
+      /******* TOKEN *******/
+      let token = jwt.sign({ email: email }, config.secret, {expiresIn: 86400});
+      console.log("token:",token);
+      res.status(201).send({auth: true, token: token, user: userObject});
     });
-    res.send(name);
   });
+
   /****************** Check if an user is register ==> /sign-in **********************/
   app.post("/sign-in", function(req, res) {
     let email = req.body.email;
@@ -37,17 +43,21 @@ const appRouter = async function(app, connection) {
     connection.query(mailUser, [email], function(err, results, fields) {
       if (err) throw err;
       console.log("mail ==>", results);
+
+      /******* TOKEN *******/
+      let token = jwt.sign({ email: email }, config.secret, {expiresIn: 86400});
+
       // handle email error
       if (results.length < 1) {
-        res.send("Sorry, email incorrect");
+        res.status(401).send("Sorry, email incorrect");
       } else {
         hash = results[0].pass;
         // handle password error
         bcrypt.compare(pass, hash, function(err, result) {
           if (result == true) {
-            res.send("you are authenticated");
+            res.status(200).send({auth: true, token: token, email: email});
           } else {
-            res.send("Sorry, password incorrect");
+            res.status(401).send("Sorry, password incorrect");
           }
         });
       }
@@ -60,13 +70,6 @@ const appRouter = async function(app, connection) {
 
 
 
-
-
-
-
-
-
-  
   /****************** get all database ==> /all **********************/
   app.get("/all", function(req, res) {
     let getAll = "SELECT * FROM authentification.users";
@@ -169,30 +172,23 @@ const appRouter = async function(app, connection) {
     });
   });
 
-
-
-
-
-
-
   // PUT /updateTable {columns: ArrayOfObjects}
-  app.put("/updateTable", function(req, res) {
-    let columns = req.body.columns
-    let columns2 = req.body.columns2
-    let update = "UPDATE authentification.users SET"
-    
-//     UPDATE employees 
-//      SET 
-//     lastname = 'Hill',
-//     email = 'mary.hill@classicmodelcars.com'
-//      WHERE
-//     employeeNumber = 1056;
-    connection.query(update, function(err, res){
-      if (err) throw err;
-      res.send(results);
+  // app.put("/updateTable", function(req, res) {
+  //   let columns = req.body.columns;
+  //   let columns2 = req.body.columns2;
+  //   let update = "UPDATE authentification.users SET";
 
-    })
-  });
+  //   //     UPDATE employees
+  //   //      SET
+  //   //     lastname = 'Hill',
+  //   //     email = 'mary.hill@classicmodelcars.com'
+  //   //      WHERE
+  //   //     employeeNumber = 1056;
+  //   connection.query(update, function(err, res) {
+  //     if (err) throw err;
+  //     res.send(results);
+  //   });
+  // });
 };
 
 module.exports = appRouter;
