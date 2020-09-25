@@ -39,11 +39,9 @@ node index.js
 
 ## Screenshots
 <br>
-Front / register:
+<img width="500" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94253468-a710f280-ff25-11ea-9418-847375f70868.gif">
 <br>
-<img width="500" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94245301-521baf00-ff1a-11ea-8ec1-d7980ad241d1.png">
 
-<br>
 Database:
 <img width="500" alt="Capture d’écran 2020-09-16 à 21 21 15" src="https://user-images.githubusercontent.com/56839789/93382917-27b75b00-f863-11ea-825e-feb1db4a49ec.png">
 <br>
