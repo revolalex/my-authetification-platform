@@ -1,10 +1,13 @@
+![](https://img.shields.io/badge/made%20with-vue.js-green?logo=vue.js).
 ![](https://img.shields.io/badge/made%20with-node.js-green?logo=node.js).
 ![](https://img.shields.io/badge/made%20with-mysql-blueviolet?logo=mysql).
-![](https://img.shields.io/badge/made%20with-mamp-succes?logo=mamp).
 
 
-<img src="https://img.shields.io/badge/express-green.svg" alt="express">.
-<img src="https://img.shields.io/badge/bcrypt-green.svg" alt="bcrypt">.
+
+<img src="https://img.shields.io/badge/vue.router-green.svg" alt="vue-router">.
+<img src="https://img.shields.io/badge/vuex-green.svg" alt="vuex">.
+<img src="https://img.shields.io/badge/axios-succes.svg" alt="axios">.
+<img src="https://img.shields.io/badge/Express-succes.svg" alt="Express">. 
 <br>
 
 
@@ -20,7 +23,7 @@
 * [Screenshots](#screenshots)
 * [Technologies](#technologies)
 * [App](#app)
-* [Learn_pratice](#Learn_pratice)
+* [Learn/pratice](#Learn/pratice)
 * [Contact](#contact)
 
 ## General info
@@ -65,7 +68,7 @@ This authentification api have two routes: 'sign-up' and 'sign-in'
  - You can create a user
  - You can autehtifiate a registred user
  
- ## Learn_pratice
+ ## Learn/pratice
 <ul>
  <li>Node.js
  <li>SQL database 
