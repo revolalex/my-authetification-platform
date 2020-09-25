@@ -1,7 +1,7 @@
-![](https://img.shields.io/badge/made%20with-node.js-green?logo=node.js).
+![](https://img.shields.io/badge/made%20with-node.js-success?logo=node.js).
 ![](https://img.shields.io/badge/made%20with-vue.js-green?logo=vue.js).
 ![](https://img.shields.io/badge/made%20with-Bootstrap_vue-blueviolet?logo=Bootstrap).
-![](https://img.shields.io/badge/made%20with-mysql-blueviolet?logo=mysql).
+![](https://img.shields.io/badge/made%20with-mysql-blue?logo=mysql).
 ![](https://img.shields.io/badge/made%20with-jsonwebtokens-orange?logo=jsonwebtokens).
 
 
