@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <div id="liens">
+    <!-- Temp NavBar for visit the dashboard -->
+   <div id="liens">
       <router-link to="/">Home</router-link>
       <router-link to="/dashboard">Dashboard</router-link>
     </div>
-    <router-view></router-view>
+
+    <router-view></router-view> 
     <!-- <MyJumbotron /> -->
   </div>
 </template>
 
 <script>
 // import MyJumbotron from './components/MyJumbotron'
-
 export default {
   name: "App",
   components: {
@@ -22,7 +23,7 @@ export default {
 
 <style>
 #liens{
-  font-size: 2em;
+  font-size: 1em;
   display: flex;
   text-align: center;
   justify-content: space-evenly;

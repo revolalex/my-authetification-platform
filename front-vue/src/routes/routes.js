@@ -1,11 +1,12 @@
-import Dashboard from "./components/Dashboard";
-import MyJumbotron from "./components/MyJumbotron";
-import AuthStore from "./components/AuthStore";
+import Dashboard from "../components/Dashboard";
+import MyJumbotron from "../components/MyJumbotron";
+import AuthStore from "../components/AuthStore";
 import Vue from "vue";
 import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
+// diifferent routes
 const routes = [
   {
     path: "/dashboard",
@@ -18,7 +19,7 @@ const routes = [
 ];
 const router = new VueRouter({ routes });
 
-
+// handle the acces to the routes
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   if (requiresAuth == true && AuthStore.state.token) {
