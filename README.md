@@ -43,6 +43,7 @@ node index.js
 <br>
 
 Database:
+<br>
 <img width="500" alt="Capture d’écran 2020-09-16 à 21 21 15" src="https://user-images.githubusercontent.com/56839789/93382917-27b75b00-f863-11ea-825e-feb1db4a49ec.png">
 <br>
 
