@@ -13,10 +13,6 @@
 <br>
 
 
-<img src="https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fgithub.com%2Frevolalex%2Fvue_js_toDoList" alt="Hits">.
-
-
-
 # Project Name : my-authetification-platform
 > My first system of authentification
 
