@@ -80,7 +80,6 @@ export default {
           if (response.status == 201) {
             // will allow the ok sentence to be visible
             that.reponseStatut = true;
-
           }
           // reset the input
           that.form.name = "";

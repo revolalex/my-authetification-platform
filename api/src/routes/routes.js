@@ -1,3 +1,4 @@
+/*********************** Module *************************/
 const bcrypt = require("bcrypt");
 const { json } = require("body-parser");
 const e = require("express");
@@ -14,12 +15,13 @@ const appRouter = async function(app, connection) {
     let passTemp = req.body.password;
     // hash the password
     let pass = bcrypt.hashSync(passTemp, saltRounds);
+    /********* The Users *************/
     const userObject = {
       name: name,
       email: email,
       pass: pass,
     };
-    console.log(userObject);
+    /****** create the user in DB ******/
     connection.query("INSERT INTO users SET ?", userObject, function(
       err,
       result
@@ -35,22 +37,21 @@ const appRouter = async function(app, connection) {
     });
   });
 
+
   /****************** Check if an user is register ==> /sign-in **********************/
   app.post("/sign-in", function(req, res) {
     let email = req.body.email;
     let pass = req.body.password;
-    let mailUser = "SELECT * FROM users WHERE email = ?";
 
+    let mailUser = "SELECT * FROM users WHERE email = ?";
     let hash = "";
     connection.query(mailUser, [email], function(err, results, fields) {
       if (err) throw err;
       console.log("mail ==>", results);
-
       /******* TOKEN *******/
       let token = jwt.sign({ email: email }, config.secret, {
         expiresIn: 86400,
       });
-
       // handle email error
       if (results.length < 1) {
         res.status(401).send("Sorry, email incorrect");
@@ -68,6 +69,10 @@ const appRouter = async function(app, connection) {
     });
   });
 
+
+
+
+  /*********************** BONUS PART *************************/
   /****************** get all database ==> /all **********************/
   app.get("/all", function(req, res) {
     let getAll = "SELECT * FROM authentification.users";
@@ -169,24 +174,6 @@ const appRouter = async function(app, connection) {
       res.send(results);
     });
   });
-
-  // PUT /updateTable {columns: ArrayOfObjects}
-  // app.put("/updateTable", function(req, res) {
-  //   let columns = req.body.columns;
-  //   let columns2 = req.body.columns2;
-  //   let update = "UPDATE authentification.users SET";
-
-  //   //     UPDATE employees
-  //   //      SET
-  //   //     lastname = 'Hill',
-  //   //     email = 'mary.hill@classicmodelcars.com'
-  //   //      WHERE
-  //   //     employeeNumber = 1056;
-  //   connection.query(update, function(err, res) {
-  //     if (err) throw err;
-  //     res.send(results);
-  //   });
-  // });
 };
 
 module.exports = appRouter;
