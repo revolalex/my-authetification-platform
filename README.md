@@ -75,10 +75,10 @@ Postman:
 
 
 ## App
-This authentification api have two routes: 'sign-up' and 'sign-in'
+This authentification app have three routes: 'sign-up' , 'sign-in' and 'dashboard'
  - You can create a user
  - You can authentifiate a register user
- <br>
+
 The password is hash with bcrypt.
 <br>
 When an user sign-in with the token (jwt) we give him acces to "dashboard".
