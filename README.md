@@ -1,5 +1,6 @@
-![](https://img.shields.io/badge/made%20with-vue.js-green?logo=vue.js).
 ![](https://img.shields.io/badge/made%20with-node.js-green?logo=node.js).
+![](https://img.shields.io/badge/made%20with-vue.js-green?logo=vue.js).
+![](https://img.shields.io/badge/made%20with-Bootstrap_vue-blueviolet?logo=Bootstrap).
 ![](https://img.shields.io/badge/made%20with-mysql-blueviolet?logo=mysql).
 
 
@@ -23,7 +24,7 @@
 * [Screenshots](#screenshots)
 * [Technologies](#technologies)
 * [App](#app)
-* [Learn/pratice](#Learn/pratice)
+* [Pratice](#Pratice)
 * [Contact](#contact)
 
 ## General info
@@ -37,6 +38,11 @@ node index.js
 ```
 
 ## Screenshots
+<br>
+Front / register:
+<br>
+<img width="500" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94245301-521baf00-ff1a-11ea-8ec1-d7980ad241d1.png">
+
 <br>
 Database:
 <img width="500" alt="Capture d’écran 2020-09-16 à 21 21 15" src="https://user-images.githubusercontent.com/56839789/93382917-27b75b00-f863-11ea-825e-feb1db4a49ec.png">
@@ -54,28 +60,45 @@ Postman:
 
 
 
+
+
 ## Technologies
+* node.js
+* vue.js
 * SQL database
-* MAMP
 * bcrypt
 * express
 * mysql
+* jwt
+* ...
 
 
 
 ## App
 This authentification api have two routes: 'sign-up' and 'sign-in'
  - You can create a user
- - You can autehtifiate a registred user
+ - You can authentifiate a register user
+The password is hash with bcrypt.
+When an user sign-in with the token (jwt) we give him acces to "dashboard".
+Finally the user can logout (no acces to dashboard).
  
- ## Learn/pratice
+ ## Pratice
 <ul>
  <li>Node.js
- <li>SQL database 
+ <li>Vue.js
+ <li>Vue-axios
+ <li>Vue-router
+ <li>Vuex
+ <li>vuex-persistedstate
+ <li>Bootstrap.vue
  <li>API
+ <li>Express
+ <li>MySQL database 
  <li>bcrypt (hash, salt)
- <li>modules cutting 
+ <li>JWT (jsonwebtoken)
  <li>Postman
+
+ 
 </ul>
  
  
