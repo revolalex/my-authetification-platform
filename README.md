@@ -21,7 +21,7 @@
 * [Screenshots](#screenshots)
 * [Technologies](#technologies)
 * [App](#app)
-* [Pratice](#Pratice)
+* [Pratice](#pratice)
 * [Contact](#contact)
 
 ## General info
