@@ -41,7 +41,6 @@ export default {
   },
   // mounted: function (){console.log(this.$store.state.token)},
   methods: {
-
     onSubmit(evt) {
       let that = this;
       evt.preventDefault();

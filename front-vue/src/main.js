@@ -10,6 +10,10 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+// Vuelidate
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
+
 //Router
 import router from "./routes/routes";
 

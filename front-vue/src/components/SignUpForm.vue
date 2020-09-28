@@ -6,11 +6,16 @@
     <br />
     <b-form @submit="onSubmit" v-if="show">
       <!-- name -->
-      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+      <b-form-group
+        id="input-group-2"
+        label="Your Name:"
+        label-for="input-2"
+        invalid-feedback="Name is required, and minimun 3 characters"
+      >
         <b-form-input
+          :state="validateState('name')"
           id="input-2"
-          v-model="form.name"
-          required
+          v-model="$v.form.name.$model"
           placeholder="Enter name"
         ></b-form-input>
       </b-form-group>
@@ -20,12 +25,13 @@
         id="input-group-1"
         label="Email address:"
         label-for="input-1"
+        invalid-feedback="Valid email is required"
       >
         <b-form-input
+        :state="validateState('email')"
           id="input-1"
-          v-model="form.email"
+          v-model="$v.form.email.$model"
           type="email"
-          required
           placeholder="Enter email"
         ></b-form-input>
       </b-form-group>
@@ -35,10 +41,12 @@
         id="input-group-2"
         label="Your Password:"
         label-for="input-2"
+        invalid-feedback="Password is required, minimun 8 characters"
       >
         <b-form-input
+        :state="validateState('password')"
           id="input-2"
-          v-model="form.password"
+          v-model="$v.form.password.$model"
           required
           placeholder="Enter password"
         ></b-form-input>
@@ -55,7 +63,10 @@
 
 <script>
 import axios from "axios";
+import { validationMixin } from "vuelidate";
+import { required, minLength, email } from "vuelidate/lib/validators";
 export default {
+  mixins: [validationMixin],
   name: "SignUpForm",
   data() {
     return {
@@ -68,8 +79,28 @@ export default {
       reponseStatut: false,
     };
   },
+  validations: {
+    form: {
+      email: {
+        required,
+        email: email
+      },
+      name: {
+        required,
+        minLength: minLength(3),
+      },
+      password: {
+        required,
+        minLength: minLength(8)
+      }
+    },
+  },
 
   methods: {
+    validateState(name) {
+      const { $dirty, $error } = this.$v.form[name];
+      return $dirty ? !$error : null;
+    },
     onSubmit(evt) {
       evt.preventDefault();
       let that = this;
