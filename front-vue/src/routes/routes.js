@@ -1,5 +1,6 @@
 import Dashboard from "../components/Dashboard";
 import MyJumbotron from "../components/MyJumbotron";
+// import ConnectedHeader from '../components/ConnectedHeader'
 import AuthStore from "../components/AuthStore";
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -16,6 +17,7 @@ const routes = [
   },
 
   { path: "/", name: "MyJumbotron", component: MyJumbotron },
+  // { path: "/connect", name: "ConnectedHeader", component: ConnectedHeader },
 ];
 const router = new VueRouter({ routes });
 

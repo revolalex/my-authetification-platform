@@ -85,6 +85,8 @@ export default {
           console.log(response);
           if (response.data.auth == true) {
             console.log("success");
+            that.$store.dispatch("ADD_NAME", response.data.name);
+            that.$store.dispatch("ADD_ID", response.data.id);
             that.$store.dispatch("ADD_TOKEN", response.data.token);
             that.$router.push("/Dashboard");
           } else {

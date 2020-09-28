@@ -4,22 +4,18 @@
       header="This is Dashboard page"
       lead="welcome to your connected users"
     >
-      <b-button type="submit" variant="danger" @click="deleteToken"
-        >Sign Out</b-button
-      >
       <hr class="my-4" />
+      <ConnectedHeader/>
     </b-jumbotron>
   </div>
 </template>
 
 <script>
+import ConnectedHeader from "./ConnectedHeader"
 export default {
   name: "Dashboard",
-  methods: {
-    deleteToken(){
-      this.$store.dispatch("DELETE_TOKEN");
-      this.$router.push("/");
-    }
+  components:{
+    ConnectedHeader
   },
 };
 </script>

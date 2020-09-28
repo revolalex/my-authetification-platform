@@ -37,7 +37,6 @@ const appRouter = async function(app, connection) {
     });
   });
 
-
   /****************** Check if an user is register ==> /sign-in **********************/
   app.post("/sign-in", function(req, res) {
     let email = req.body.email;
@@ -47,9 +46,11 @@ const appRouter = async function(app, connection) {
     let hash = "";
     connection.query(mailUser, [email], function(err, results, fields) {
       if (err) throw err;
-      console.log("mail ==>", results);
+      console.log("result sign-in ==>", results);
+      let name = results[0].name;
+      let id = results[0].id
       /******* TOKEN *******/
-      let token = jwt.sign({ email: email }, config.secret, {
+      let token = jwt.sign({ email: email, name: name, id: id}, config.secret, {
         expiresIn: 86400,
       });
       // handle email error
@@ -60,7 +61,17 @@ const appRouter = async function(app, connection) {
         // handle password error
         bcrypt.compare(pass, hash, function(err, result) {
           if (result == true) {
-            res.status(200).send({ auth: true, token: token, email: email });
+            // get the decoded payload ignoring signature, no secretOrPrivateKey needed
+            var decoded = jwt.decode(token);
+
+            // get the decoded payload and header
+            var decoded = jwt.decode(token, { complete: true });
+            console.log("header",decoded.header);
+            console.log("payload",decoded.payload);
+
+            res
+              .status(200)
+              .send({ auth: true, token: token, email: email, name: name, id:id });
           } else {
             res.status(401).send("Sorry, password incorrect");
           }
@@ -68,9 +79,6 @@ const appRouter = async function(app, connection) {
       }
     });
   });
-
-
-
 
   /*********************** BONUS PART *************************/
   /****************** get all database ==> /all **********************/
