@@ -5,17 +5,17 @@
       lead="welcome to your connected users"
     >
       <hr class="my-4" />
-      <ConnectedHeader/>
     </b-jumbotron>
+    <ConnectedHeader />
   </div>
 </template>
 
 <script>
-import ConnectedHeader from "./ConnectedHeader"
+import ConnectedHeader from "./ConnectedHeader";
 export default {
   name: "Dashboard",
-  components:{
-    ConnectedHeader
+  components: {
+    ConnectedHeader,
   },
 };
 </script>

@@ -48,11 +48,15 @@ const appRouter = async function(app, connection) {
       if (err) throw err;
       console.log("result sign-in ==>", results);
       let name = results[0].name;
-      let id = results[0].id
+      let id = results[0].id;
       /******* TOKEN *******/
-      let token = jwt.sign({ email: email, name: name, id: id}, config.secret, {
-        expiresIn: 86400,
-      });
+      let token = jwt.sign(
+        { email: email, name: name, id: id },
+        config.secret,
+        {
+          expiresIn: 86400,
+        }
+      );
       // handle email error
       if (results.length < 1) {
         res.status(401).send("Sorry, email incorrect");
@@ -66,12 +70,16 @@ const appRouter = async function(app, connection) {
 
             // get the decoded payload and header
             var decoded = jwt.decode(token, { complete: true });
-            console.log("header",decoded.header);
-            console.log("payload",decoded.payload);
+            console.log("header", decoded.header);
+            console.log("payload", decoded.payload);
 
-            res
-              .status(200)
-              .send({ auth: true, token: token, email: email, name: name, id:id });
+            res.status(200).send({
+              auth: true,
+              token: token,
+              email: email,
+              name: name,
+              id: id,
+            });
           } else {
             res.status(401).send("Sorry, password incorrect");
           }
@@ -79,6 +87,49 @@ const appRouter = async function(app, connection) {
       }
     });
   });
+
+  /****************** create Table and columns ==> /createTable **********************/
+  // POST /createTable {nameOfTable: String, columns: ArrayOfObjects}
+  // let nameOfTable = req.body.nameOfTable;
+  // let id = req.body.id;
+  // let name = req.body.name;
+  // let email = req.body.email;
+  // let user_affiliate = req.body.user_affiliate;
+  app.post("/createTable", function(req, res) {
+    let createTableCol =
+      "CREATE TABLE IF NOT EXISTS contacts ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(200) NOT NULL, id_user_affiliate VARCHAR(50))";
+    connection.query(createTableCol, function(err, results) {
+      if (err) throw err;
+      res.send(results);
+    });
+  });
+
+  // add a new contact
+  app.post("/add-new-contact", function(req, res) {
+    let name = req.body.name;
+    let email = req.body.email;
+    let id_user_affiliate = req.body.id_user_affiliate;
+
+    let sql = `insert into contacts (name, email, id_user_affiliate) VALUES ('${name}', '${email}', '${id_user_affiliate}')`;
+
+    connection.query(sql, function(err, results) {
+      if (err) throw err;
+      res.status(200).send(results);
+    });
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /*********************** BONUS PART *************************/
   /****************** get all database ==> /all **********************/
@@ -158,26 +209,6 @@ const appRouter = async function(app, connection) {
       email +
       ";";
     connection.query(updateEmail, function(err, results) {
-      if (err) throw err;
-      res.send(results);
-    });
-  });
-
-  /****************** create Table and columns ==> /createTable **********************/
-  // POST /createTable {nameOfTable: String, columns: ArrayOfObjects}
-  app.post("/createTable", function(req, res) {
-    let nameOfTable = req.body.nameOfTable;
-    let columns = req.body.columns;
-    let columns2 = req.body.columns2;
-    let createTableCol =
-      "CREATE TABLE " +
-      nameOfTable +
-      " (" +
-      columns +
-      " VARCHAR(255)," +
-      columns2 +
-      " VARCHAR(255))";
-    connection.query(createTableCol, function(err, results) {
       if (err) throw err;
       res.send(results);
     });

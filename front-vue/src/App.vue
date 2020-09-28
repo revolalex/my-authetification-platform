@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <!-- Temp NavBar for visit the dashboard -->
-   <!-- <div id="liens">
+   <div id="liens">
       <router-link to="/">Home</router-link>
       <router-link to="/dashboard">Dashboard</router-link>
-    </div> -->
+    </div>
 
     <router-view></router-view> 
     <!-- <MyJumbotron /> -->

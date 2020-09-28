@@ -8,7 +8,7 @@ Vue.use(Vuex);
 let state = {
   token: false,
   name: "",
-  id: ""
+  id: "",
 };
 
 // MUTATIONS
@@ -28,7 +28,9 @@ const mutations = {
 };
 
 // GETTERS
-const getters = {};
+const getters = {
+
+};
 
 // ACTIONS
 const actions = {
