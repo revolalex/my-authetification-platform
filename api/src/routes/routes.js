@@ -89,12 +89,6 @@ const appRouter = async function(app, connection) {
   });
 
   /****************** create Table and columns ==> /createTable **********************/
-  // POST /createTable {nameOfTable: String, columns: ArrayOfObjects}
-  // let nameOfTable = req.body.nameOfTable;
-  // let id = req.body.id;
-  // let name = req.body.name;
-  // let email = req.body.email;
-  // let user_affiliate = req.body.user_affiliate;
   app.post("/createTable", function(req, res) {
     let createTableCol =
       "CREATE TABLE IF NOT EXISTS contacts ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(200) NOT NULL, id_user_affiliate VARCHAR(50))";
@@ -120,9 +114,10 @@ const appRouter = async function(app, connection) {
 
 
   
-  app.get("/test", function(req, res) {
+  app.get("/get-contacts", function(req, res) {
     let getAll =
-      "SELECT * FROM contacts INNER JOIN users ON contacts.id_user_affiliate = users.id";
+      // "SELECT * FROM contacts INNER JOIN users ON contacts.id_user_affiliate = users.id";
+      "SELECT * FROM users INNER JOIN contacts ON users.id = contacts.id_user_affiliate"
     connection.query(getAll, function(err, results) {
       if (err) throw err;
       res.send(results);

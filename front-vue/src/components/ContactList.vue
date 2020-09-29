@@ -1,11 +1,19 @@
 <template>
   <div>
-    <div id="contact">
-      <p>
-        Name: {{ this.$store.state.name }} =====> Id: {{ this.$store.state.id }}
-      </p>
-    </div>
-    <li></li>
+    <ul v-for="element in listToShow" :key="element.id">
+      Prénom:
+      {{
+        element.name
+      }}
+      ======> Email:
+      {{
+        element.email
+      }}
+      ===> ID User affiliate:
+      {{
+        element.id_user_affiliate
+      }}
+    </ul>
   </div>
 </template>
 
@@ -18,12 +26,28 @@ export default {
       listOfContact: [],
     };
   },
-  beforeCreate() {
-    let self = this
+  computed: {
+    listToShow() {
+      return this.$store.getters.LIST_TO_DISPLAY(this.listOfContact);
+    },
+  },
+  mounted() {
+    let self = this;
     axios
-      .get(`http://localhost:3000/test`)
+      .get(`http://localhost:3000/get-contacts`)
       .then(function (response) {
-        console.log(response.data[0]);
+        self.listOfContact = response.data;
+        console.log(self.listOfContact);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
+  updated() {
+    let self = this;
+    axios
+      .get(`http://localhost:3000/get-contacts`)
+      .then(function (response) {
         self.listOfContact = response.data;
         console.log(self.listOfContact);
       })
@@ -35,13 +59,4 @@ export default {
 </script>
 
 <style>
-#contact {
-  padding-top: 10px;
-  margin-right: 20vw;
-  margin-left: 20vw;
-  border-radius: 20px 20px 20px 20px;
-  -moz-border-radius: 20px 20px 20px 20px;
-  -webkit-border-radius: 20px 20px 20px 20px;
-  border: 2px solid #000000;
-}
 </style>

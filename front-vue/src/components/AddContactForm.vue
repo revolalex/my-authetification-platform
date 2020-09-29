@@ -69,6 +69,18 @@ export default {
       this.form.name = "";
     },
   },
+  updated() {
+    let self = this
+    axios
+      .get(`http://localhost:3000/get-contacts`)
+      .then(function (response) {
+        self.listOfContact = response.data;
+        console.log(self.listOfContact);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
 };
 </script>
 <style>
