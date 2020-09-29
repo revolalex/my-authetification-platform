@@ -119,17 +119,15 @@ const appRouter = async function(app, connection) {
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
+  
+  app.get("/test", function(req, res) {
+    let getAll =
+      "SELECT * FROM contacts INNER JOIN users ON contacts.id_user_affiliate = users.id";
+    connection.query(getAll, function(err, results) {
+      if (err) throw err;
+      res.send(results);
+    });
+  });
 
   /*********************** BONUS PART *************************/
   /****************** get all database ==> /all **********************/

@@ -1,6 +1,6 @@
 <template>
   <div id="addContact">
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form @submit="onSubmit" @reset="onReset">
       <b-form-group
         id="input-group-1"
         label="Email address:"
@@ -54,16 +54,13 @@ export default {
         .then(function (response) {
           console.log("response", response);
           if (response.status == 200) {
-            // will allow the ok sentence to be visible
             console.log(response);
           }
-          // reset the input
-          this.form.name = "";
-          this.form.email = "";
         })
         .catch(function (error) {
           console.log(error);
         });
+        evt.target.reset()
     },
     onReset(evt) {
       evt.preventDefault();

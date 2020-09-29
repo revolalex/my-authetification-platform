@@ -82,7 +82,6 @@ export default {
       axios
         .post(`http://localhost:3000/sign-in/`, this.form)
         .then(function (response) {
-          console.log(response);
           if (response.data.auth == true) {
             console.log("success");
             that.$store.dispatch("ADD_NAME", response.data.name);
