@@ -24,6 +24,8 @@
         </b-collapse>
       </b-navbar>
     </div>
+    <!-- jumbotron -->
+    <b-jumbotron lead="welcome to your connected user !"> </b-jumbotron>
     <!-- tab -->
     <div>
       <div id="myTab">
@@ -38,7 +40,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -60,7 +61,7 @@ export default {
 </script>
 
 <style>
-/* #liens {
+#liens {
   display: flex;
   align-items: center;
   background: darkgreen;
@@ -68,5 +69,5 @@ export default {
 #myTab {
   margin-left: 20vw;
   margin-right: 20vw;
-} */
+}
 </style>

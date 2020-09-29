@@ -25,7 +25,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="success">Add </b-button>
+      <b-button type="submit" variant="success">Add</b-button>
     </b-form>
   </div>
 </template>
@@ -69,19 +69,19 @@ export default {
       this.form.name = "";
     },
   },
-  // update when we add a contact
-  updated() {
-    let self = this;
-    axios
-      .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
-      .then(function (response) {
-        self.$store.state.contact = response.data;
-        console.log(self.$store.state.contact);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  },
+
+  // updated() {
+  //   let self = this;
+  //   axios
+  //     .get(`http://localhost:3000/get-contacts/${this.id_user_affiliate}`)
+  //     .then(function (response) {
+  //       self.$store.state.contact = response.data;
+  //       console.log(self.$store.state.contact);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // },
 };
 </script>
 <style>

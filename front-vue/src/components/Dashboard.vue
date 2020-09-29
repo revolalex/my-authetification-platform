@@ -1,13 +1,6 @@
 <template>
   <div id="center">
     <ConnectedHeader />
-    <b-jumbotron
-      header="This is Dashboard page"
-      lead="welcome to your connected users"
-    >
-      <hr class="my-4" />
-    </b-jumbotron>
-    
   </div>
 </template>
 

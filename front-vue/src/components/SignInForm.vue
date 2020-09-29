@@ -33,7 +33,7 @@
         ></b-form-input>
       </b-form-group>
       <!-- button -->
-      <b-button type="submit" variant="success">Sign In</b-button>
+      <b-button type="submit" variant="success" @click="addContact">Sign In</b-button>
     </b-form>
 
     <b-card class="mt-3" header="Form Data Result">
@@ -72,6 +72,20 @@ export default {
   },
   // mounted: function (){console.log(this.$store.state.token)},
   methods: {
+    addContact(){
+      let contact;
+      let that = this
+    axios
+      .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
+      .then(function (response) {
+        contact = response.data;
+        that.$store.dispatch("GET_CONTACT", contact)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
+
     validateState(name) {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;

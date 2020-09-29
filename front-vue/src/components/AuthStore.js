@@ -9,7 +9,7 @@ let state = {
   token: false,
   name: "",
   id: "",
-  contact: []
+  contact: [],
 };
 
 // MUTATIONS
@@ -26,12 +26,13 @@ const mutations = {
   ADDED_ID: (state, id) => {
     state.id = id;
   },
+  CONTACT_ADDED: (state, contact) => {
+    state.contact = contact;
+  },
 };
 
 // GETTERS
-const getters = {
-
-};
+const getters = {};
 
 // ACTIONS
 const actions = {
@@ -46,6 +47,9 @@ const actions = {
   },
   ADD_ID: (context, id) => {
     context.commit("ADDED_ID", id);
+  },
+  GET_CONTACT: (context, contact) => {
+    context.commit("CONTACT_ADDED", contact);
   },
 };
 
