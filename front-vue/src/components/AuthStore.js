@@ -19,6 +19,11 @@ const mutations = {
   },
   DELETE_TOKENS: (state) => {
     state.token = false;
+    state.name = "";
+    state.id = "";
+  },
+  DELETE_CONTACTS: (state) => {
+    state.contact = [];
   },
   ADDED_NAME: (state, name) => {
     state.name = name;
@@ -26,7 +31,7 @@ const mutations = {
   ADDED_ID: (state, id) => {
     state.id = id;
   },
-  CONTACT_ADDED: (state, contact) => {
+  GET_CONTACTS: (state, contact) => {
     state.contact = contact;
   },
 };
@@ -42,6 +47,9 @@ const actions = {
   DELETE_TOKEN: (context) => {
     context.commit("DELETE_TOKENS");
   },
+  DELETE_CONTACT: (contect) => {
+    contect.commit("DELETE_CONTACTS");
+  },
   ADD_NAME: (context, name) => {
     context.commit("ADDED_NAME", name);
   },
@@ -49,7 +57,7 @@ const actions = {
     context.commit("ADDED_ID", id);
   },
   GET_CONTACT: (context, contact) => {
-    context.commit("CONTACT_ADDED", contact);
+    context.commit("GET_CONTACTS", contact);
   },
 };
 

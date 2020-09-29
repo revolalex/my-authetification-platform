@@ -9,7 +9,7 @@ const saltRounds = 10;
 
 const appRouter = async function(app, connection) {
   /*********************** add an user ==> /sign-up *************************/
-  app.post("/sign-up", function(req, res) {
+  await app.post("/sign-up", function(req, res) {
     let name = req.body.name;
     let email = req.body.email;
     let passTemp = req.body.password;
@@ -38,7 +38,7 @@ const appRouter = async function(app, connection) {
   });
 
   /****************** Check if an user is register ==> /sign-in **********************/
-  app.post("/sign-in", function(req, res) {
+  await app.post("/sign-in", function(req, res) {
     let email = req.body.email;
     let pass = req.body.password;
 
@@ -89,7 +89,7 @@ const appRouter = async function(app, connection) {
   });
 
   /****************** create Table and columns ==> /createTable **********************/
-  app.post("/createTable", function(req, res) {
+  await app.post("/createTable", function(req, res) {
     let createTableCol =
       "CREATE TABLE IF NOT EXISTS contacts ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(200) NOT NULL, id_user_affiliate VARCHAR(50))";
     connection.query(createTableCol, function(err, results) {
@@ -99,7 +99,7 @@ const appRouter = async function(app, connection) {
   });
 
   // add a new contact
-  app.post("/add-new-contact", function(req, res) {
+  await app.post("/add-new-contact", function(req, res) {
     let name = req.body.name;
     let email = req.body.email;
     let id_user_affiliate = req.body.id_user_affiliate;
@@ -112,7 +112,7 @@ const appRouter = async function(app, connection) {
     });
   });
 
-  app.get("/get-contacts/:id", function(req, res) {
+  await app.get("/get-contacts/:id", function(req, res) {
     let x = req.params.id
     let getAll =
       `SELECT contacts.name,contacts.email,contacts.id_user_affiliate from users inner join contacts on users.id = contacts.id_user_affiliate where users.id = ${connection.escape(x)}`
@@ -134,88 +134,88 @@ const appRouter = async function(app, connection) {
   //   });
   // });
 
-  /*********************** BONUS PART *************************/
-  /****************** get all database ==> /all **********************/
-  app.get("/all", function(req, res) {
-    let getAll = "SELECT * FROM authentification.users";
-    connection.query(getAll, function(err, results) {
-      if (err) throw err;
-      res.send(results);
-    });
-  });
+  // /*********************** BONUS PART *************************/
+  // /****************** get all database ==> /all **********************/
+  // app.get("/all", function(req, res) {
+  //   let getAll = "SELECT * FROM authentification.users";
+  //   connection.query(getAll, function(err, results) {
+  //     if (err) throw err;
+  //     res.send(results);
+  //   });
+  // });
 
-  /****************** get all emails ==> /emails **********************/
-  app.get("/emails", function(req, res) {
-    let getAllEmail = "SELECT email FROM authentification.users";
-    connection.query(getAllEmail, function(err, results) {
-      if (err) throw err;
-      res.send(results);
-    });
-  });
+  // /****************** get all emails ==> /emails **********************/
+  // app.get("/emails", function(req, res) {
+  //   let getAllEmail = "SELECT email FROM authentification.users";
+  //   connection.query(getAllEmail, function(err, results) {
+  //     if (err) throw err;
+  //     res.send(results);
+  //   });
+  // });
 
-  /****************** get all names ==> /names **********************/
-  app.get("/names", function(req, res) {
-    let getAllNames = "SELECT name FROM authentification.users";
-    connection.query(getAllNames, function(err, results) {
-      if (err) throw err;
-      res.send(results);
-    });
-  });
+  // /****************** get all names ==> /names **********************/
+  // app.get("/names", function(req, res) {
+  //   let getAllNames = "SELECT name FROM authentification.users";
+  //   connection.query(getAllNames, function(err, results) {
+  //     if (err) throw err;
+  //     res.send(results);
+  //   });
+  // });
 
-  /************ delete user with this email ==> /users/:email **************/
-  app.delete("/users/:email", function(req, res) {
-    let email = req.params.email;
-    let usersMailToDelete =
-      "DELETE FROM authentification.users where email = ?";
-    connection.query(usersMailToDelete, [email], function(err, results) {
-      if (err) throw err;
-      // handle unknown user
-      if (results.affectedRows > 0) {
-        console.log(results.affectedRows);
-        res.send("Users removed");
-      } else {
-        res.send("Unknown users");
-      }
-    });
-  });
+  // /************ delete user with this email ==> /users/:email **************/
+  // app.delete("/users/:email", function(req, res) {
+  //   let email = req.params.email;
+  //   let usersMailToDelete =
+  //     "DELETE FROM authentification.users where email = ?";
+  //   connection.query(usersMailToDelete, [email], function(err, results) {
+  //     if (err) throw err;
+  //     // handle unknown user
+  //     if (results.affectedRows > 0) {
+  //       console.log(results.affectedRows);
+  //       res.send("Users removed");
+  //     } else {
+  //       res.send("Unknown users");
+  //     }
+  //   });
+  // });
 
-  /****************** create a database ==> /createDB **********************/
-  app.post("/createDB", function(req, res) {
-    let dbName = req.body.dbName;
-    let createDatabase = "CREATE DATABASE " + dbName;
-    connection.query(createDatabase, function(err, results) {
-      if (err) throw err;
-      res.send("Sucess database  '" + dbName + "' created");
-    });
-  });
+  // /****************** create a database ==> /createDB **********************/
+  // app.post("/createDB", function(req, res) {
+  //   let dbName = req.body.dbName;
+  //   let createDatabase = "CREATE DATABASE " + dbName;
+  //   connection.query(createDatabase, function(err, results) {
+  //     if (err) throw err;
+  //     res.send("Sucess database  '" + dbName + "' created");
+  //   });
+  // });
 
-  /****************** delete database ==> /db/:dbName **********************/
-  app.delete("/db/:dbName", function(req, res) {
-    let dbName = req.params.dbName;
-    console.log(dbName);
-    let dbToDelete = "DROP DATABASE " + dbName;
-    connection.query(dbToDelete, function(err, results) {
-      if (err) throw err;
-      res.send("Success Database deleted: " + dbName);
-    });
-  });
+  // /****************** delete database ==> /db/:dbName **********************/
+  // app.delete("/db/:dbName", function(req, res) {
+  //   let dbName = req.params.dbName;
+  //   console.log(dbName);
+  //   let dbToDelete = "DROP DATABASE " + dbName;
+  //   connection.query(dbToDelete, function(err, results) {
+  //     if (err) throw err;
+  //     res.send("Success Database deleted: " + dbName);
+  //   });
+  // });
 
-  /****************** update email ==> /users/:email **********************/
-  app.put("/users/:email", function(req, res) {
-    let email = JSON.stringify(req.params.email);
-    let specify = JSON.stringify(req.body.specify);
+  // /****************** update email ==> /users/:email **********************/
+  // app.put("/users/:email", function(req, res) {
+  //   let email = JSON.stringify(req.params.email);
+  //   let specify = JSON.stringify(req.body.specify);
 
-    let updateEmail =
-      "UPDATE authentification.users SET email = " +
-      specify +
-      "WHERE email =" +
-      email +
-      ";";
-    connection.query(updateEmail, function(err, results) {
-      if (err) throw err;
-      res.send(results);
-    });
-  });
+  //   let updateEmail =
+  //     "UPDATE authentification.users SET email = " +
+  //     specify +
+  //     "WHERE email =" +
+  //     email +
+  //     ";";
+  //   connection.query(updateEmail, function(err, results) {
+  //     if (err) throw err;
+  //     res.send(results);
+  //   });
+  // });
 };
 
 module.exports = appRouter;

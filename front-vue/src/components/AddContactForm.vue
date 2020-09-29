@@ -40,26 +40,42 @@ export default {
         name: "",
         id_user_affiliate: "",
       },
-
+      contact: [],
       show: true,
     };
   },
 
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
       this.form.id_user_affiliate = this.$store.state.id;
-      axios
+      await axios
         .post(`http://localhost:3000/add-new-contact`, this.form)
         .then(function (response) {
           console.log("response", response);
           if (response.status == 200) {
-            console.log("add",response);
+            console.log("add", response);
           }
         })
         .catch(function (error) {
           console.log(error);
         });
+      // actualise les contacte dans le store
+      let that = this;
+      await axios
+        .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
+        .then(function (response) {
+          let contact = response.data;
+          that.contact = response.data;
+          that.$store.state.contact = contact
+          console.log(that.contact, "youpi");
+          that.$store.dispatch("GET_CONTACT", contact);
+          console.log("add", contact);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
       evt.target.reset();
     },
     onReset(evt) {
@@ -70,18 +86,18 @@ export default {
     },
   },
 
-  // updated() {
-  //   let self = this;
-  //   axios
-  //     .get(`http://localhost:3000/get-contacts/${this.id_user_affiliate}`)
-  //     .then(function (response) {
-  //       self.$store.state.contact = response.data;
-  //       console.log(self.$store.state.contact);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // },
+  mounted() {
+    let that = this;
+    axios
+      .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
+      .then(function (response) {
+        that.listOfContact = response.data;
+        console.log("that", that.listOfContact);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
 };
 </script>
 <style>

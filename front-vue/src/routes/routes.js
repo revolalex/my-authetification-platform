@@ -19,9 +19,9 @@ const routes = [
   { path: "/", name: "MyJumbotron", component: MyJumbotron },
   // { path: "/connect", name: "ConnectedHeader", component: ConnectedHeader },
 ];
-const router = new VueRouter({ routes });
+const router = new VueRouter({ routes, mode: 'history' });
 
-// handle the acces to the routes
+// handle the acces to the routes check in all routes the meta requiresAuth
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   if (requiresAuth == true && AuthStore.state.token) {

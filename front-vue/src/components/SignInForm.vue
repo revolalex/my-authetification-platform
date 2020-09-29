@@ -25,15 +25,17 @@
         invalid-feedback="Password is required, minimun 8 characters"
       >
         <b-form-input
-        :state="validateState('password')"
-        v-model="$v.form.password.$model"
+          :state="validateState('password')"
+          v-model="$v.form.password.$model"
           id="input-2"
           required
           placeholder="Enter password"
         ></b-form-input>
       </b-form-group>
       <!-- button -->
-      <b-button type="submit" variant="success" @click="addContact">Sign In</b-button>
+      <b-button type="submit" variant="success" @click="addContact"
+        >Sign In
+      </b-button>
     </b-form>
 
     <b-card class="mt-3" header="Form Data Result">
@@ -70,38 +72,50 @@ export default {
       },
     },
   },
-  // mounted: function (){console.log(this.$store.state.token)},
   methods: {
-    addContact(){
-      let contact;
-      let that = this
-    axios
-      .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
-      .then(function (response) {
-        contact = response.data;
-        that.$store.dispatch("GET_CONTACT", contact)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    addContact() {
+      // let contact;
+      // axios
+      //   .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
+      //   .then(function (response) {
+      //     contact = response.data;
+      //     console.log("contact", contact);
+      //     that.$store.dispatch("GET_CONTACT", contact);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     },
 
     validateState(name) {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
     },
-    onSubmit(evt) {
+
+    async onSubmit(evt) {
       let that = this;
       evt.preventDefault();
-      axios
+      await axios
         .post(`http://localhost:3000/sign-in/`, this.form)
         .then(function (response) {
           if (response.data.auth == true) {
-            console.log("success");
+            console.log("success", response);
             that.$store.dispatch("ADD_NAME", response.data.name);
             that.$store.dispatch("ADD_ID", response.data.id);
             that.$store.dispatch("ADD_TOKEN", response.data.token);
             that.$router.push("/Dashboard");
+            // charge les contactt de l'user
+            let contact;
+            axios
+              .get(`http://localhost:3000/get-contacts/${that.$store.state.id}`)
+              .then(function (response) {
+                contact = response.data;
+                console.log("contact", contact);
+                that.$store.dispatch("GET_CONTACT", contact);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
           } else {
             alert("Error password or email incorrect");
           }

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div id="myListC" v-for="element in listOfContact" :key="element.id">
-      <p><span> Prénom: </span> {{ element.name }}</p>
-      <p><span> Email: </span> {{ element.email }}</p>
+    <div id="myListC" v-for="element in this.$store.state.contact" :key="element.id">
+      <li id="prenom"><span> Prénom: </span> {{ element.name }}</li>
+      <li id="email"><span> Email: </span> {{ element.email }}</li>
     </div>
   </div>
 </template>
@@ -15,11 +15,6 @@ export default {
     return {
       listOfContact: [],
     };
-  },
-  computed: {
-    listToShow() {
-      return this.listOfContact;
-    },
   },
 
   mounted() {
@@ -52,21 +47,19 @@ export default {
 <style>
 #myListC {
   text-align: left;
-  margin: 2% 20% 2% 20%;
-  border-radius: 25px 25px 25px 25px;
-  -moz-border-radius: 25px 25px 25px 25px;
-  -webkit-border-radius: 25px 25px 25px 25px;
+  margin: 2% 10% 2% 10%;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
   border: 2px solid #000000;
 }
-p {
-  margin: 10%;
+#prenom, #email{
   display: inline;
-  
+  margin: 1% 1% 1% 1%;
 }
 span {
-  
   font-weight: bold;
   font-size: 1.3em;
-  color: rgb(2, 129, 45);
+  color: rgb(2, 114, 129);
 }
 </style>

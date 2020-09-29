@@ -2,7 +2,28 @@
   <div>
     <!-- navbar -->
     <div id="myNav">
-      <b-navbar toggleable="lg" type="dark" variant="info">
+      <div>
+        <b-navbar toggleable="lg" type="dark" variant="info" >
+          <b-navbar-brand href="#">Dashboard</b-navbar-brand>
+          <b-navbar-nav>
+            <b-nav-item href="#" disabled>{{this.$store.state.name}}</b-nav-item>
+          </b-navbar-nav>
+          <!-- Right aligned nav items -->
+          <b-navbar-nav class="ml-auto">
+            <b-button
+              size="sm"
+              class="my-2 my-sm-0"
+              type="submit"
+              variant="danger"
+              @click="deleteToken"
+              v-b-popover.hover.bottom="'Delete the token !'"
+              title="Sign-Out"
+              >Sign-Out</b-button
+            >
+          </b-navbar-nav>
+        </b-navbar>
+      </div>
+      <!-- <b-navbar toggleable="lg" type="dark" variant="info">
         <b-navbar-brand>Dashboard</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -13,7 +34,7 @@
               this.$store.state.name
             }}</b-nav-item>
             <b-button
-              ype="submit"
+              type="submit"
               variant="danger"
               @click="deleteToken"
               v-b-popover.hover.bottom="'Delete the token !'"
@@ -22,7 +43,7 @@
             >
           </b-navbar-nav>
         </b-collapse>
-      </b-navbar>
+      </b-navbar> -->
     </div>
     <!-- jumbotron -->
     <b-jumbotron lead="welcome to your connected user !"> </b-jumbotron>
@@ -30,10 +51,10 @@
     <div>
       <div id="myTab">
         <b-tabs content-class="mt-3">
-          <b-tab title="List-Contact" active>
+          <b-tab title="List-Contact">
             <ContactList />
           </b-tab>
-          <b-tab title="Add-Contact">
+          <b-tab title="Add-Contact" active>
             <AddContactForm />
           </b-tab>
         </b-tabs>
@@ -54,6 +75,7 @@ export default {
   methods: {
     deleteToken() {
       this.$store.dispatch("DELETE_TOKEN");
+      this.$store.dispatch("DELETE_CONTACT")
       this.$router.push("/");
     },
   },
@@ -69,5 +91,7 @@ export default {
 #myTab {
   margin-left: 20vw;
   margin-right: 20vw;
+}
+#myNav {
 }
 </style>

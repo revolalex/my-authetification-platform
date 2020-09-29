@@ -76,6 +76,8 @@ export default {
         password: "",
       },
       show: true,
+      
+      // will allow the ok sentence to be visible
       reponseStatut: false,
     };
   },
