@@ -9,6 +9,7 @@ let state = {
   token: false,
   name: "",
   id: "",
+  contact: []
 };
 
 // MUTATIONS
@@ -29,13 +30,7 @@ const mutations = {
 
 // GETTERS
 const getters = {
-  //filtre array to only return the one with the good id
-  LIST_TO_DISPLAY: (state) => (listOfContact) => {
-    function filtre(element) {
-      return (element.id_user_affiliate == state.id);
-    }
-    return listOfContact.filter(filtre);
-  },
+
 };
 
 // ACTIONS

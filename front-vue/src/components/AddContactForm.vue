@@ -48,19 +48,19 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      this.form.id_user_affiliate = this.$store.state.id
+      this.form.id_user_affiliate = this.$store.state.id;
       axios
         .post(`http://localhost:3000/add-new-contact`, this.form)
         .then(function (response) {
           console.log("response", response);
           if (response.status == 200) {
-            console.log(response);
+            console.log("add",response);
           }
         })
         .catch(function (error) {
           console.log(error);
         });
-        evt.target.reset()
+      evt.target.reset();
     },
     onReset(evt) {
       evt.preventDefault();
@@ -69,13 +69,14 @@ export default {
       this.form.name = "";
     },
   },
+  // update when we add a contact
   updated() {
-    let self = this
+    let self = this;
     axios
-      .get(`http://localhost:3000/get-contacts`)
+      .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
       .then(function (response) {
-        self.listOfContact = response.data;
-        console.log(self.listOfContact);
+        self.$store.state.contact = response.data;
+        console.log(self.$store.state.contact);
       })
       .catch(function (error) {
         console.log(error);

@@ -112,17 +112,27 @@ const appRouter = async function(app, connection) {
     });
   });
 
-
-  
-  app.get("/get-contacts", function(req, res) {
+  app.get("/get-contacts/:id", function(req, res) {
+    let x = req.params.id
     let getAll =
-      // "SELECT * FROM contacts INNER JOIN users ON contacts.id_user_affiliate = users.id";
-      "SELECT * FROM users INNER JOIN contacts ON users.id = contacts.id_user_affiliate"
+      `SELECT contacts.name,contacts.email,contacts.id_user_affiliate from users inner join contacts on users.id = contacts.id_user_affiliate where users.id = ${connection.escape(x)}`
     connection.query(getAll, function(err, results) {
       if (err) throw err;
       res.send(results);
     });
   });
+
+  
+  // app.get("/get-contacts", function(req, res) {
+  //   let getAll =
+
+  //     "SELECT * FROM users INNER JOIN contacts ON users.id = contacts.id_user_affiliate"
+  //     // `SELECT contacts.name,contacts.email,contacts.id_user_affiliate from users inner join contacts on users.id = contacts.id_user_affiliate where users.id = $(connection.escape(x)`)
+  //   connection.query(getAll, function(err, results) {
+  //     if (err) throw err;
+  //     res.send(results);
+  //   });
+  // });
 
   /*********************** BONUS PART *************************/
   /****************** get all database ==> /all **********************/

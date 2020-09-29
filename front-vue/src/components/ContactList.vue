@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul v-for="element in listToShow" :key="element.id">
+    <ul v-for="element in listOfContact" :key="element.id">
       Prénom:
       {{
         element.name
@@ -26,30 +26,31 @@ export default {
       listOfContact: [],
     };
   },
-  computed: {
-    listToShow() {
-      return this.$store.getters.LIST_TO_DISPLAY(this.listOfContact);
-    },
+  computed:{
+    listToShow(){
+      return this.listOfContact
+    }
   },
+
   mounted() {
-    let self = this;
+    let that = this;
     axios
-      .get(`http://localhost:3000/get-contacts`)
+      .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
       .then(function (response) {
-        self.listOfContact = response.data;
-        console.log(self.listOfContact);
+        that.listOfContact = response.data;
+        console.log("that",that.listOfContact);
       })
       .catch(function (error) {
         console.log(error);
       });
   },
-  updated() {
-    let self = this;
+    updated() {
+    let that = this;
     axios
-      .get(`http://localhost:3000/get-contacts`)
+      .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
       .then(function (response) {
-        self.listOfContact = response.data;
-        console.log(self.listOfContact);
+        that.listOfContact = response.data;
+        console.log("that",that.listOfContact);
       })
       .catch(function (error) {
         console.log(error);
