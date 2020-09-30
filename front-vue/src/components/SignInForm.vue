@@ -33,9 +33,7 @@
         ></b-form-input>
       </b-form-group>
       <!-- button -->
-      <b-button type="submit" variant="success" @click="addContact"
-        >Sign In
-      </b-button>
+      <b-button type="submit" variant="success">Sign In </b-button>
     </b-form>
 
     <b-card class="mt-3" header="Form Data Result">
@@ -46,8 +44,10 @@
 
 <script>
 import axios from "axios";
+//vuelidate
 import { validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
+
 export default {
   mixins: [validationMixin],
   name: "SignInForm",
@@ -60,6 +60,7 @@ export default {
       show: true,
     };
   },
+  // vuelidate
   validations: {
     form: {
       email: {
@@ -73,20 +74,6 @@ export default {
     },
   },
   methods: {
-    addContact() {
-      // let contact;
-      // axios
-      //   .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
-      //   .then(function (response) {
-      //     contact = response.data;
-      //     console.log("contact", contact);
-      //     that.$store.dispatch("GET_CONTACT", contact);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
-    },
-
     validateState(name) {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
@@ -99,18 +86,31 @@ export default {
         .post(`http://localhost:3000/sign-in/`, this.form)
         .then(function (response) {
           if (response.data.auth == true) {
-            console.log("success", response);
+            console.log("sign-in", response);
+            console.log("sign-in -> token", response.data.token);
+            //stock to store state
             that.$store.dispatch("ADD_NAME", response.data.name);
             that.$store.dispatch("ADD_ID", response.data.id);
             that.$store.dispatch("ADD_TOKEN", response.data.token);
+            // chage the route
             that.$router.push("/Dashboard");
-            // charge les contactt de l'user
+
+            //Headers of request
+            let yourConfig = {
+              headers: {
+                Authorization: "Bearer " + response.data.token,
+              },
+            };
+
+            // charge les contacts de l'user
             let contact;
             axios
-              .get(`http://localhost:3000/get-contacts/${that.$store.state.id}`)
+              .get(
+                `http://localhost:3000/get-contacts/${that.$store.state.id}`,
+                yourConfig
+              )
               .then(function (response) {
                 contact = response.data;
-                console.log("contact", contact);
                 that.$store.dispatch("GET_CONTACT", contact);
               })
               .catch(function (error) {
@@ -119,6 +119,7 @@ export default {
           } else {
             alert("Error password or email incorrect");
           }
+          // reset imput
           that.form.email = "";
           that.form.password = "";
           that.show = false;

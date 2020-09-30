@@ -46,7 +46,7 @@ const appRouter = async function(app, connection) {
       let token = jwt.sign({ email: email }, config.secret, {
         expiresIn: 86400,
       });
-      console.log("token:", token);
+      console.log("token ==>", token);
       res.status(201).send({ auth: true, token: token, user: userObject });
     });
   });
@@ -81,12 +81,10 @@ const appRouter = async function(app, connection) {
           if (result == true) {
             // get the decoded payload ignoring signature, no secretOrPrivateKey needed
             var decoded = jwt.decode(token);
-
             // get the decoded payload and header
             var decoded = jwt.decode(token, { complete: true });
-            console.log("header", decoded.header);
-            console.log("payload", decoded.payload);
-
+            console.log("header ==>", decoded.header);
+            console.log("payload ==>", decoded.payload);
             res.status(200).send({
               auth: true,
               token: token,

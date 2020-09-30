@@ -92,7 +92,7 @@ export default {
       .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
       .then(function (response) {
         that.listOfContact = response.data;
-        console.log("that", that.listOfContact);
+        console.log("list of contact - add contact :", that.listOfContact);
       })
       .catch(function (error) {
         console.log(error);
