@@ -8,6 +8,20 @@ const config = require("./config");
 const saltRounds = 10;
 
 const appRouter = async function(app, connection) {
+
+  await app.use("/sign-up", (req, res, next) => {
+
+    connection.query(`SELECT * FROM users WHERE name = '${req.body.name}'`,
+      (err, results) => {
+        if (err)throw err;
+        if (results.length > 0) {
+          res.status(200).send("this USER NAME already exist");
+        } else {
+          next();
+        }
+      });
+  });
+
   /*********************** add an user ==> /sign-up *************************/
   await app.post("/sign-up", function(req, res) {
     let name = req.body.name;
@@ -112,27 +126,17 @@ const appRouter = async function(app, connection) {
     });
   });
 
+  // get contact whith the users ID same as id_user_affiliate
   await app.get("/get-contacts/:id", function(req, res) {
-    let x = req.params.id
-    let getAll =
-      `SELECT contacts.name,contacts.email,contacts.id_user_affiliate from users inner join contacts on users.id = contacts.id_user_affiliate where users.id = ${connection.escape(x)}`
+    let x = req.params.id;
+    let getAll = `SELECT contacts.name,contacts.email,contacts.id_user_affiliate from users inner join contacts on users.id = contacts.id_user_affiliate where users.id = ${connection.escape(
+      x
+    )}`;
     connection.query(getAll, function(err, results) {
       if (err) throw err;
       res.send(results);
     });
   });
-
-  
-  // app.get("/get-contacts", function(req, res) {
-  //   let getAll =
-
-  //     "SELECT * FROM users INNER JOIN contacts ON users.id = contacts.id_user_affiliate"
-  //     // `SELECT contacts.name,contacts.email,contacts.id_user_affiliate from users inner join contacts on users.id = contacts.id_user_affiliate where users.id = $(connection.escape(x)`)
-  //   connection.query(getAll, function(err, results) {
-  //     if (err) throw err;
-  //     res.send(results);
-  //   });
-  // });
 
   // /*********************** BONUS PART *************************/
   // /****************** get all database ==> /all **********************/

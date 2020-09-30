@@ -1,7 +1,10 @@
 <template>
   <div>
-    <h2 v-if="reponseStatut == true">
+    <h2 id="registerOk" v-if="reponseStatut == true">
       You have been register, go Sign-in now !
+    </h2>
+      <h2 id="nameAlreadyUse" v-if="nameAlreadyUse == true">
+      this USER NAME already exist
     </h2>
     <br />
     <b-form @submit="onSubmit" v-if="show">
@@ -76,6 +79,7 @@ export default {
         password: "",
       },
       show: true,
+      nameAlreadyUse: false,
       
       // will allow the ok sentence to be visible
       reponseStatut: false,
@@ -114,6 +118,9 @@ export default {
             // will allow the ok sentence to be visible
             that.reponseStatut = true;
           }
+          if(response.status == 200){
+            that.nameAlreadyUse = true;
+          }
           // reset the input
           that.form.name = "";
           that.form.email = "";
@@ -131,8 +138,11 @@ export default {
 };
 </script>
 <style>
-h2 {
+#registerOk {
   text-align: left;
   color: rgb(32, 212, 32);
+}
+#nameAlreadyUse{
+  color: rgb(199, 22, 22);
 }
 </style>
