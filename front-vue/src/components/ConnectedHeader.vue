@@ -23,27 +23,6 @@
           </b-navbar-nav>
         </b-navbar>
       </div>
-      <!-- <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand>Dashboard</b-navbar-brand>
-
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-        <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav>
-            <b-nav-item href="#" disabled>{{
-              this.$store.state.name
-            }}</b-nav-item>
-            <b-button
-              type="submit"
-              variant="danger"
-              @click="deleteToken"
-              v-b-popover.hover.bottom="'Delete the token !'"
-              title="Sign-Out"
-              >Sign-Out</b-button
-            >
-          </b-navbar-nav>
-        </b-collapse>
-      </b-navbar> -->
     </div>
     <!-- jumbotron -->
     <b-jumbotron lead="welcome to your connected user !"> </b-jumbotron>

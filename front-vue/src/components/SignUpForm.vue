@@ -125,6 +125,9 @@ export default {
           that.form.name = "";
           that.form.email = "";
           that.form.password = "";
+           // reset vuelidate error (red)
+          that.$v.$reset()
+
           that.show = false;
           that.$nextTick(() => {
             that.show = true;
