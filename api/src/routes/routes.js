@@ -3,23 +3,26 @@ const bcrypt = require("bcrypt");
 const { json } = require("body-parser");
 const e = require("express");
 const jwt = require("jsonwebtoken");
+const auth = require("../middleware/auth");
 const config = require("./config");
+
+
 
 const saltRounds = 10;
 
 const appRouter = async function(app, connection) {
-
   await app.use("/sign-up", (req, res, next) => {
-
-    connection.query(`SELECT * FROM users WHERE name = '${req.body.name}'`,
+    connection.query(
+      `SELECT * FROM users WHERE name = '${req.body.name}'`,
       (err, results) => {
-        if (err)throw err;
+        if (err) throw err;
         if (results.length > 0) {
           res.status(200).send("this USER NAME already exist");
         } else {
           next();
         }
-      });
+      }
+    );
   });
 
   /*********************** add an user ==> /sign-up *************************/
@@ -111,7 +114,7 @@ const appRouter = async function(app, connection) {
   });
 
   // add a new contact
-  await app.post("/add-new-contact", function(req, res) {
+  await app.post("/add-new-contact",auth, function(req, res) {
     let name = req.body.name;
     let email = req.body.email;
     let id_user_affiliate = req.body.id_user_affiliate;
@@ -124,12 +127,37 @@ const appRouter = async function(app, connection) {
     });
   });
 
+
+
+ 
+
   // get contact whith the users ID same as id_user_affiliate
-  await app.get("/get-contacts/:id", function(req, res) {
+  await app.get("/get-contacts/:id",auth, function(req, res) {
     let x = req.params.id;
-    let getAll = `SELECT contacts.name,contacts.email,contacts.id_user_affiliate from users inner join contacts on users.id = contacts.id_user_affiliate where users.id = ${connection.escape(
-      x
-    )}`;
+    // const authHeader = req.headers['authorization']
+    // const token = authHeader && authHeader.split(' ')[1]
+    // console.log("authHeader",authHeader);
+    // console.log("token",token);
+    let getAll = `SELECT contacts.name,contacts.email,contacts.id_user_affiliate 
+    from users inner join contacts on users.id = 
+    contacts.id_user_affiliate where users.id = ${connection.escape(x)}`;
+
+
+    // Working here
+    // var token = req.headers["x-access-token"];
+    // console.log();
+    // if (!token)
+    //   return res
+    //     .status(401)
+    //     .send({ auth: false, message: "No token provided." });
+
+    // jwt.verify(token, config.secret, function(err, decoded) {
+    //   if (err)
+    //     return res
+    //       .status(500)
+    //       .send({ auth: false, message: "Failed to authenticate token." });
+    // });
+
     connection.query(getAll, function(err, results) {
       if (err) throw err;
       res.send(results);

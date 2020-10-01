@@ -49,10 +49,19 @@ export default {
     async onSubmit(evt) {
       evt.preventDefault();
       this.form.id_user_affiliate = this.$store.state.id;
+
+      //Headers of request with token
+      let yourConfig = {
+        headers: {
+          Authorization: "Bearer " + this.$store.state.token,
+        },
+      };
+
       await axios
-        .post(`http://localhost:3000/add-new-contact`, this.form)
+        .post(`http://localhost:3000/add-new-contact`, this.form, yourConfig)
         .then(function (response) {
           console.log("response", response);
+          console.log("response headers", response.headers);
           if (response.status == 200) {
             console.log("add", response);
           }
@@ -60,17 +69,19 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
+
       // actualise les contacte dans le store
       let that = this;
       await axios
-        .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
+        .get(
+          `http://localhost:3000/get-contacts/${this.$store.state.id}`,
+          yourConfig
+        )
         .then(function (response) {
           let contact = response.data;
           that.contact = response.data;
-          that.$store.state.contact = contact
-          console.log(that.contact, "youpi");
+          that.$store.state.contact = contact;
           that.$store.dispatch("GET_CONTACT", contact);
-          console.log("add", contact);
         })
         .catch(function (error) {
           console.log(error);
@@ -87,9 +98,18 @@ export default {
   },
 
   mounted() {
+    //Headers of request with token
+    let yourConfig = {
+      headers: {
+        Authorization: "Bearer " + this.$store.state.token,
+      },
+    };
     let that = this;
     axios
-      .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
+      .get(
+        `http://localhost:3000/get-contacts/${this.$store.state.id}`,
+        yourConfig
+      )
       .then(function (response) {
         that.listOfContact = response.data;
         console.log("list of contact - add contact :", that.listOfContact);

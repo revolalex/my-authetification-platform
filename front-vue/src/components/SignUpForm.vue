@@ -80,7 +80,6 @@ export default {
       },
       show: true,
       nameAlreadyUse: false,
-      
       // will allow the ok sentence to be visible
       reponseStatut: false,
     };

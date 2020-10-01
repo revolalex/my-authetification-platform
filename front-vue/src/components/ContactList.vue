@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div id="myListC" v-for="element in this.$store.state.contact" :key="element.id">
+    <div
+      id="myListC"
+      v-for="element in this.$store.state.contact"
+      :key="element.id"
+    >
       <li id="prenom"><span> Prénom: </span> {{ element.name }}</li>
       <li id="email"><span> Email: </span> {{ element.email }}</li>
     </div>
@@ -18,29 +22,26 @@ export default {
   },
 
   mounted() {
+    //Headers of request
+    let yourConfig = {
+      headers: {
+        Authorization: "Bearer " + this.$store.state.token
+      },
+    };
+
     let that = this;
     axios
-      .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
+      .get(
+        `http://localhost:3000/get-contacts/${this.$store.state.id}`,
+        yourConfig
+      )
       .then(function (response) {
         that.listOfContact = response.data;
-        console.log("contact List", that.listOfContact);
       })
       .catch(function (error) {
         console.log(error);
       });
   },
-  //   updated() {
-  //   let that = this;
-  //   axios
-  //     .get(`http://localhost:3000/get-contacts/${this.$store.state.id}`)
-  //     .then(function (response) {
-  //       that.listOfContact = response.data;
-  //       console.log("that",that.listOfContact);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // },
 };
 </script>
 
@@ -53,7 +54,8 @@ export default {
   -webkit-border-radius: 10px 10px 10px 10px;
   border: 2px solid #000000;
 }
-#prenom, #email{
+#prenom,
+#email {
   display: inline;
   margin: 1% 1% 1% 1%;
 }

@@ -105,10 +105,7 @@ export default {
             // charge les contacts de l'user
             let contact;
             axios
-              .get(
-                `http://localhost:3000/get-contacts/${that.$store.state.id}`,
-                yourConfig
-              )
+              .get(`http://localhost:3000/get-contacts/${that.$store.state.id}`, yourConfig)
               .then(function (response) {
                 contact = response.data;
                 that.$store.dispatch("GET_CONTACT", contact);
