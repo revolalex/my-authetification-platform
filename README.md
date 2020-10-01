@@ -25,7 +25,7 @@
 * [Contact](#contact)
 
 ## General info
->Aim of the project, create a system of authentification using SQL databe, MAMP. 👩‍🎓 👨‍🎓 
+>Aim of the project, create a system of authentification using token, SQL databe, MAMP. 👩‍🎓 👨‍🎓 
 ---
 In the assets folder you can find a pdf with all the requierements ask.
 
