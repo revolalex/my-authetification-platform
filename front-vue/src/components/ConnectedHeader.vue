@@ -71,6 +71,4 @@ export default {
   margin-left: 20vw;
   margin-right: 20vw;
 }
-#myNav {
-}
 </style>

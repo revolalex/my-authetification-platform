@@ -37,7 +37,11 @@ const mutations = {
 };
 
 // GETTERS
-const getters = {};
+const getters = {
+  CONTACT_LIST:(state)=>()=>{
+    return state.contact
+  }
+};
 
 // ACTIONS
 const actions = {

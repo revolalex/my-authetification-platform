@@ -50,13 +50,14 @@ export default {
       evt.preventDefault();
       this.form.id_user_affiliate = this.$store.state.id;
 
+
       //Headers of request with token
       let yourConfig = {
         headers: {
           Authorization: "Bearer " + this.$store.state.token,
         },
       };
-
+      // Add new contact in DB
       await axios
         .post(`http://localhost:3000/add-new-contact`, this.form, yourConfig)
         .then(function (response) {
@@ -70,7 +71,7 @@ export default {
           console.log(error);
         });
 
-      // actualise les contacte dans le store
+      // Actualize contact in store
       let that = this;
       await axios
         .get(
@@ -104,7 +105,9 @@ export default {
         Authorization: "Bearer " + this.$store.state.token,
       },
     };
+    // for dont have scope problem in the callback
     let that = this;
+    // Load the contact in staore
     axios
       .get(
         `http://localhost:3000/get-contacts/${this.$store.state.id}`,

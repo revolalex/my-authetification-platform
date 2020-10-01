@@ -74,6 +74,7 @@ export default {
     },
   },
   methods: {
+    //vuelidate
     validateState(name) {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
@@ -95,14 +96,14 @@ export default {
             // chage the route
             that.$router.push("/Dashboard");
 
-            //Headers of request
+            //Headers of request with token
             let yourConfig = {
               headers: {
                 Authorization: "Bearer " + response.data.token,
               },
             };
 
-            // charge les contacts de l'user
+            // Load contact of the user
             let contact;
             axios
               .get(`http://localhost:3000/get-contacts/${that.$store.state.id}`, yourConfig)
@@ -116,7 +117,7 @@ export default {
           } else {
             alert("Error password or email incorrect");
           }
-          // reset imput
+          // Reset imput
           that.form.email = "";
           that.form.password = "";
           that.show = false;

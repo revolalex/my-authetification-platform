@@ -4,13 +4,14 @@ const { json } = require("body-parser");
 const e = require("express");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
-const config = require("./config");
-
-
-
+const config = require("../modules/config");
 const saltRounds = 10;
 
+/*********************** FUNCTION GLOBAL ASYNC *************************/
 const appRouter = async function(app, connection) {
+
+
+  /*********************** Check if user with this name already exist *************************/
   await app.use("/sign-up", (req, res, next) => {
     connection.query(
       `SELECT * FROM users WHERE name = '${req.body.name}'`,
@@ -27,8 +28,8 @@ const appRouter = async function(app, connection) {
 
   /*********************** add an user ==> /sign-up *************************/
   await app.post("/sign-up", function(req, res) {
-    let name = req.body.name;
-    let email = req.body.email;
+    let name = req.body.name.toLowerCase();
+    let email = req.body.email.toLowerCase();
     let passTemp = req.body.password;
     // hash the password
     let pass = bcrypt.hashSync(passTemp, saltRounds);
@@ -56,7 +57,7 @@ const appRouter = async function(app, connection) {
 
   /****************** Check if an user is register ==> /sign-in **********************/
   await app.post("/sign-in", function(req, res) {
-    let email = req.body.email;
+    let email = req.body.email.toLowerCase();
     let pass = req.body.password;
 
     let mailUser = "SELECT * FROM users WHERE email = ?";
@@ -103,7 +104,7 @@ const appRouter = async function(app, connection) {
     });
   });
 
-  /****************** create Table and columns ==> /createTable **********************/
+  /****************** create Table "contacts" and columns ==> /createTable **********************/
   await app.post("/createTable", function(req, res) {
     let createTableCol =
       "CREATE TABLE IF NOT EXISTS contacts ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(200) NOT NULL, id_user_affiliate VARCHAR(50))";
@@ -113,51 +114,39 @@ const appRouter = async function(app, connection) {
     });
   });
 
-  // add a new contact
-  await app.post("/add-new-contact",auth, function(req, res) {
-    let name = req.body.name;
-    let email = req.body.email;
+
+   /****************** create Table "users" and columns ==> /createTable **********************/
+   await app.post("/createTableUsers", function(req, res) {
+    let createTableCol =
+      "CREATE TABLE IF NOT EXISTS users ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(200) NOT NULL, pass VARCHAR(200))";
+    connection.query(createTableCol, function(err, results) {
+      if (err) throw err;
+      res.send(results);
+    });
+  });
+
+
+
+
+
+ /*************************************** add new contact ************************************/
+  await app.post("/add-new-contact", auth, function(req, res) {
+    let name = req.body.name.toLowerCase();
+    let email = req.body.email.toLowerCase();
     let id_user_affiliate = req.body.id_user_affiliate;
-
     let sql = `insert into contacts (name, email, id_user_affiliate) VALUES ('${name}', '${email}', '${id_user_affiliate}')`;
-
     connection.query(sql, function(err, results) {
       if (err) throw err;
       res.status(200).send(results);
     });
   });
 
-
-
- 
-
-  // get contact whith the users ID same as id_user_affiliate
-  await app.get("/get-contacts/:id",auth, function(req, res) {
+ /*********************** get contact whith the users ID same as id_user_affiliat ***************/
+  await app.get("/get-contacts/:id", auth, function(req, res) {
     let x = req.params.id;
-    // const authHeader = req.headers['authorization']
-    // const token = authHeader && authHeader.split(' ')[1]
-    // console.log("authHeader",authHeader);
-    // console.log("token",token);
     let getAll = `SELECT contacts.name,contacts.email,contacts.id_user_affiliate 
     from users inner join contacts on users.id = 
     contacts.id_user_affiliate where users.id = ${connection.escape(x)}`;
-
-
-    // Working here
-    // var token = req.headers["x-access-token"];
-    // console.log();
-    // if (!token)
-    //   return res
-    //     .status(401)
-    //     .send({ auth: false, message: "No token provided." });
-
-    // jwt.verify(token, config.secret, function(err, decoded) {
-    //   if (err)
-    //     return res
-    //       .status(500)
-    //       .send({ auth: false, message: "Failed to authenticate token." });
-    // });
-
     connection.query(getAll, function(err, results) {
       if (err) throw err;
       res.send(results);

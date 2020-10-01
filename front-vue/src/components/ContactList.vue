@@ -1,13 +1,15 @@
 <template>
   <div>
-    <div
-      id="myListC"
-      v-for="element in this.$store.state.contact"
-      :key="element.id"
-    >
-      <li id="prenom"><span> Prénom: </span> {{ element.name }}</li>
-      <li id="email"><span> Email: </span> {{ element.email }}</li>
-    </div>
+    <b-container class="bv-example-row">
+      <b-row
+        id="myListC"
+        v-for="element in this.$store.state.contact"
+        :key="element.id"
+      >
+        <b-col><span> Prénom: </span> {{ element.name }}</b-col>
+        <b-col><span> Email: </span> {{ element.email }}</b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -25,10 +27,10 @@ export default {
     //Headers of request
     let yourConfig = {
       headers: {
-        Authorization: "Bearer " + this.$store.state.token
+        Authorization: "Bearer " + this.$store.state.token,
       },
     };
-
+    // for no problem of scope in the callback
     let that = this;
     axios
       .get(
@@ -53,15 +55,19 @@ export default {
   -moz-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
   border: 2px solid #000000;
+  padding: 1%;
 }
 #prenom,
 #email {
   display: inline;
   margin: 1% 1% 1% 1%;
 }
+#deleteButton {
+  margin: 2%;
+}
 span {
   font-weight: bold;
-  font-size: 1.3em;
+  font-size: 1.1em;
   color: rgb(2, 114, 129);
 }
 </style>

@@ -1,12 +1,14 @@
 <template>
   <div>
-    <h2 id="registerOk" v-if="reponseStatut == true">
+    <b-alert v-model="showSuccesLogin" variant="success" dismissible>
       You have been register, go Sign-in now !
-    </h2>
-      <h2 id="nameAlreadyUse" v-if="nameAlreadyUse == true">
-      this USER NAME already exist
-    </h2>
+    </b-alert>
+
+    <b-alert v-model="showNameAlert" variant="danger" dismissible>
+      this "user name" already exist
+    </b-alert>
     <br />
+
     <b-form @submit="onSubmit" v-if="show">
       <!-- name -->
       <b-form-group
@@ -31,7 +33,7 @@
         invalid-feedback="Valid email is required"
       >
         <b-form-input
-        :state="validateState('email')"
+          :state="validateState('email')"
           id="input-1"
           v-model="$v.form.email.$model"
           type="email"
@@ -47,7 +49,7 @@
         invalid-feedback="Password is required, minimun 8 characters"
       >
         <b-form-input
-        :state="validateState('password')"
+          :state="validateState('password')"
           id="input-2"
           v-model="$v.form.password.$model"
           required
@@ -79,16 +81,17 @@ export default {
         password: "",
       },
       show: true,
-      nameAlreadyUse: false,
+
       // will allow the ok sentence to be visible
-      reponseStatut: false,
+      showNameAlert: false,
+      showSuccesLogin: false,
     };
   },
   validations: {
     form: {
       email: {
         required,
-        email: email
+        email: email,
       },
       name: {
         required,
@@ -96,8 +99,8 @@ export default {
       },
       password: {
         required,
-        minLength: minLength(8)
-      }
+        minLength: minLength(8),
+      },
     },
   },
 
@@ -106,26 +109,26 @@ export default {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
     },
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
       let that = this;
-      axios
+      await axios
         .post(`http://localhost:3000/sign-up`, this.form)
         .then(function (response) {
           console.log("response", response);
           if (response.status == 201) {
-            // will allow the ok sentence to be visible
-            that.reponseStatut = true;
+            // will allow the alert to be visible
+            that.showSuccesLogin = true;
           }
-          if(response.status == 200){
-            that.nameAlreadyUse = true;
+          if (response.status == 200) {
+            that.showNameAlert = true;
           }
           // reset the input
           that.form.name = "";
           that.form.email = "";
           that.form.password = "";
-           // reset vuelidate error (red)
-          that.$v.$reset()
+          // reset vuelidate error (red)
+          that.$v.$reset();
 
           that.show = false;
           that.$nextTick(() => {
@@ -144,7 +147,7 @@ export default {
   text-align: left;
   color: rgb(32, 212, 32);
 }
-#nameAlreadyUse{
+#nameAlreadyUse {
   color: rgb(199, 22, 22);
 }
 </style>
