@@ -8,6 +8,14 @@
       >
         <b-col><span> Prénom: </span> {{ element.name }}</b-col>
         <b-col><span> Email: </span> {{ element.email }}</b-col>
+        <b-button
+          id="myBtn"
+          pill
+          variant="danger"
+          size="sm"
+          @click="print(element.email)"
+          >Delete</b-button
+        >
       </b-row>
     </b-container>
   </div>
@@ -20,7 +28,41 @@ export default {
   data: function () {
     return {
       listOfContact: [],
+      mailToDelete: "",
     };
+  },
+  methods: {
+    async print(mailToDelete) {
+      let yourConfig = {
+        headers: {
+          Authorization: "Bearer " + this.$store.state.token,
+        },
+      };
+
+      await axios
+        .delete(`http://localhost:3000/users/${mailToDelete}`, yourConfig)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //Headers of request
+
+      // for no problem of scope in the callback
+      let that = this;
+      await axios
+        .get(
+          `http://localhost:3000/get-contacts/${this.$store.state.id}`,
+          yourConfig
+        )
+        .then(function (response) {
+          that.$store.state.contact = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
   },
 
   mounted() {
@@ -68,6 +110,6 @@ export default {
 span {
   font-weight: bold;
   font-size: 1.1em;
-  color: rgb(2, 114, 129);
+  color: rgb(5, 128, 145);
 }
 </style>

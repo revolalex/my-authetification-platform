@@ -98,7 +98,7 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
     //Headers of request with token
     let yourConfig = {
       headers: {
@@ -108,7 +108,7 @@ export default {
     // for dont have scope problem in the callback
     let that = this;
     // Load the contact in staore
-    axios
+    await axios
       .get(
         `http://localhost:3000/get-contacts/${this.$store.state.id}`,
         yourConfig

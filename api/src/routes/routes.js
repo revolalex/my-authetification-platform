@@ -153,6 +153,33 @@ const appRouter = async function(app, connection) {
     });
   });
 
+
+    // /************ delete user with this email ==> /users/:email **************/
+  await app.delete("/users/:email",auth, function(req, res) {
+    let email = req.params.email;
+    let usersMailToDelete =
+      "DELETE FROM authentification.contacts where email = ?";
+    connection.query(usersMailToDelete, [email], function(err, results) {
+      if (err) throw err;
+      // handle unknown user
+      if (results.affectedRows > 0) {
+        console.log(results.affectedRows);
+        res.send("Users removed");
+      } else {
+        res.send("Unknown users");
+      }
+    });
+  });
+
+
+
+
+
+
+
+
+
+
   // /*********************** BONUS PART *************************/
   // /****************** get all database ==> /all **********************/
   // app.get("/all", function(req, res) {

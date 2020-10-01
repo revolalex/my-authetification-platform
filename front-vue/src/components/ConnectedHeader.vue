@@ -6,7 +6,7 @@
         <b-navbar toggleable="lg" type="dark" variant="info" >
           <b-navbar-brand href="#">Dashboard</b-navbar-brand>
           <b-navbar-nav>
-            <b-nav-item href="#" disabled>{{this.$store.state.name}}</b-nav-item>
+            <b-navba-brand id="nameUser" href="#" disabled> User: {{this.$store.state.name}}</b-navba-brand>
           </b-navbar-nav>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
@@ -70,5 +70,10 @@ export default {
 #myTab {
   margin-left: 20vw;
   margin-right: 20vw;
+}
+#nameUser{
+  font-weight: bolder;
+  font-size: 1.2em;
+  font-style:italic;
 }
 </style>
