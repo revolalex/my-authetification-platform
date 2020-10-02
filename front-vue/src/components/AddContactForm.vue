@@ -42,6 +42,11 @@ export default {
       },
       contact: [],
       show: true,
+      yourConfig:{
+        headers: {
+          Authorization: "Bearer " + this.$store.state.token,
+        },
+      }
     };
   },
 
@@ -50,14 +55,10 @@ export default {
       evt.preventDefault();
       this.form.id_user_affiliate = this.$store.state.id;
       //Headers of request with token
-      let yourConfig = {
-        headers: {
-          Authorization: "Bearer " + this.$store.state.token,
-        },
-      };
+
       // Add new contact in DB
       await axios
-        .post(`http://localhost:3000/add-new-contact`, this.form, yourConfig)
+        .post(`http://localhost:3000/add-new-contact`, this.form, this.yourConfig)
         .then(function (response) {
           console.log("response", response);
           console.log("response headers", response.headers);
@@ -74,7 +75,7 @@ export default {
       await axios
         .get(
           `http://localhost:3000/get-contacts/${this.$store.state.id}`,
-          yourConfig
+          that.yourConfig
         )
         .then(function (response) {
           let contact = response.data;
@@ -97,19 +98,13 @@ export default {
   },
 
   async mounted() {
-    //Headers of request with token
-    let yourConfig = {
-      headers: {
-        Authorization: "Bearer " + this.$store.state.token,
-      },
-    };
     // for dont have scope problem in the callback
     let that = this;
     // Load the contact in staore
     await axios
       .get(
         `http://localhost:3000/get-contacts/${this.$store.state.id}`,
-        yourConfig
+        that.yourConfig
       )
       .then(function (response) {
         that.$store.state.contact = response.data;

@@ -54,6 +54,7 @@ export default {
     ContactList,
     AddContactForm,
   },
+
   methods: {
     deleteToken() {
       this.$store.dispatch("DELETE_TOKEN");

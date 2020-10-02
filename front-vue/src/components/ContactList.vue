@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container class="bv-example-row">
+    <b-container class="bv-example-row" fluid="xl">
       <b-row
         id="myListC"
         v-for="element in this.$store.state.contact"
@@ -13,13 +13,13 @@
           ><span> Email:<br /> </span> {{ element.email }}</b-col
         >
         <!-- change email  -->
-        <b-col>
+        <b-col >
           <b-form-input
             v-model="newEmail[element.email]"
             placeholder="Type new email"
           ></b-form-input>
         </b-col>
-        <b-col>
+        <b-col >
           <b-button
             id="myBtn"
             pill
@@ -143,6 +143,7 @@ export default {
 </script>
 
 <style>
+
 #myListC {
   text-align: left;
   margin: 2% 2% 2% 2%;
