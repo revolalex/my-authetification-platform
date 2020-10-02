@@ -55,51 +55,61 @@ const appRouter = async function(app, connection) {
 
   /****************** Check if an user is register ==> /sign-in **********************/
   await app.post("/sign-in", function(req, res) {
-    let email = req.body.email.toLowerCase();
-    let pass = req.body.password;
+    try {
+      let email = req.body.email.toLowerCase();
+      let pass = req.body.password;
 
-    let mailUser = "SELECT * FROM users WHERE email = ?";
-    let hash = "";
-    connection.query(mailUser, [email], function(err, results, fields) {
-      if (err) throw err;
-      console.log("result sign-in ==>", results);
-      let name = results[0].name;
-      let id = results[0].id;
-      /******* TOKEN *******/
-      let token = jwt.sign(
-        { email: email, name: name, id: id },
-        config.secret,
-        {
-          expiresIn: 86400,
+      let mailUser = "SELECT * FROM users WHERE email = ?";
+      let hash = "";
+      connection.query(mailUser, [email], function(err, results, fields) {
+        if (err) throw err;
+        console.log("result sign-in ==>", results);
+     
+        // handle email error
+        
+        if (!Array.isArray(results) || !results.length) {
+          console.log("email error");
+          // res.status(401).send("Sorry, email incorrect");
+          res.send("Sorry, email incorrect");
+        } else {
+          let name = results[0].name;
+          let id = results[0].id;
+          /******* TOKEN *******/
+          let token = jwt.sign(
+            { email: email, name: name, id: id },
+            config.secret,
+            {
+              expiresIn: 86400,
+            }
+          );
+          hash = results[0].pass;
+          // handle password error
+          bcrypt.compare(pass, hash, function(err, result) {
+            if (result == true) {
+              // get the decoded payload ignoring signature, no secretOrPrivateKey needed
+              var decoded = jwt.decode(token);
+              // get the decoded payload and header
+              var decoded = jwt.decode(token, { complete: true });
+              console.log("header ==>", decoded.header);
+              console.log("payload ==>", decoded.payload);
+              res.status(200).send({
+                auth: true,
+                token: token,
+                email: email,
+                name: name,
+                id: id,
+              });
+            } else {
+              console.log("pass error");
+              // res.status(401).send("Sorry, password incorrect");
+              res.send("password error")
+            }
+          });
         }
-      );
-      // handle email error
-      if (results.length < 1) {
-        res.status(401).send("Sorry, email incorrect");
-      } else {
-        hash = results[0].pass;
-        // handle password error
-        bcrypt.compare(pass, hash, function(err, result) {
-          if (result == true) {
-            // get the decoded payload ignoring signature, no secretOrPrivateKey needed
-            var decoded = jwt.decode(token);
-            // get the decoded payload and header
-            var decoded = jwt.decode(token, { complete: true });
-            console.log("header ==>", decoded.header);
-            console.log("payload ==>", decoded.payload);
-            res.status(200).send({
-              auth: true,
-              token: token,
-              email: email,
-              name: name,
-              id: id,
-            });
-          } else {
-            res.status(401).send("Sorry, password incorrect");
-          }
-        });
-      }
-    });
+      });
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   /*************************************** add new contact ************************************/
@@ -143,27 +153,23 @@ const appRouter = async function(app, connection) {
     });
   });
 
-    /****************** update email ==> /users/:email **********************/
-    app.put("/users/:email", function(req, res) {
-      let email = JSON.stringify(req.params.email);
-      let specify = JSON.stringify(req.body.specify);
-      console.log("SPE", specify);
-      console.log("@", email);
-  
-      let updateEmail =
-        "UPDATE authentification.contacts SET email = " +
-        specify +
-        "WHERE email = " +
-        email;
-      connection.query(updateEmail, function(err, results) {
-        if (err) throw err;
-        res.send(results);
-      });
+  /****************** update email ==> /users/:email **********************/
+  app.put("/users/:email", function(req, res) {
+    let email = JSON.stringify(req.params.email).toLowerCase();
+    let specify = JSON.stringify(req.body.specify).toLowerCase();
+    console.log("SPE", specify);
+    console.log("@", email);
+
+    let updateEmail =
+      "UPDATE authentification.contacts SET email = " +
+      specify +
+      "WHERE email = " +
+      email;
+    connection.query(updateEmail, function(err, results) {
+      if (err) throw err;
+      res.send(results);
     });
-
-
-
-
+  });
 
   // /****************** create Table "contacts" and columns ==> /createTable **********************/
   // await app.post("/createTable", function(req, res) {
@@ -213,7 +219,6 @@ const appRouter = async function(app, connection) {
   //   });
   // });
 
-
   // /****************** create a database ==> /createDB **********************/
   // app.post("/createDB", function(req, res) {
   //   let dbName = req.body.dbName;
@@ -234,8 +239,6 @@ const appRouter = async function(app, connection) {
   //     res.send("Success Database deleted: " + dbName);
   //   });
   // });
-
-
 };
 
 module.exports = appRouter;

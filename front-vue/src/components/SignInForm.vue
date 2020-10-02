@@ -1,5 +1,13 @@
 <template>
   <div>
+    <b-alert v-model="showPassAlert" variant="danger" dismissible>
+      Paswword incorrect !
+    </b-alert>
+      <b-alert v-model="showEmailAlert" variant="danger" dismissible>
+      Email incorrect !
+    </b-alert>
+
+    
     <b-form @submit="onSubmit" v-if="show">
       <!-- email -->
       <b-form-group
@@ -58,8 +66,11 @@ export default {
         password: "",
       },
       show: true,
+      showPassAlert: false,
+      showEmailAlert: false
     };
   },
+
   // vuelidate
   validations: {
     form: {
@@ -86,6 +97,15 @@ export default {
       await axios
         .post(`http://localhost:3000/sign-in/`, this.form)
         .then(function (response) {
+          console.log("response", response.data);
+          if (response.data == "password error") {
+            that.showPassAlert = true;
+            that.$v.$reset();
+          }
+          if (response.data == "Sorry, email incorrect") {
+            that.showEmailAlert = true;
+            that.$v.$reset();
+          }
           if (response.data.auth == true) {
             console.log("sign-in", response);
             console.log("sign-in -> token", response.data.token);
@@ -106,7 +126,10 @@ export default {
             // Load contact of the user
             let contact;
             axios
-              .get(`http://localhost:3000/get-contacts/${that.$store.state.id}`, yourConfig)
+              .get(
+                `http://localhost:3000/get-contacts/${that.$store.state.id}`,
+                yourConfig
+              )
               .then(function (response) {
                 contact = response.data;
                 that.$store.dispatch("GET_CONTACT", contact);

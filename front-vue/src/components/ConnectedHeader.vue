@@ -7,9 +7,9 @@
           <b-navbar-brand href="#">Dashboard</b-navbar-brand>
           <b-navbar-nav>
             <b-navbar-brand id="nameUser" href="#" disabled>
-              <b-avatar variant="light"></b-avatar> :
-              {{ this.$store.state.name }}
-              </b-navbar-brand>
+              <b-avatar variant="light"></b-avatar>
+              {{ userName }}
+            </b-navbar-brand>
           </b-navbar-nav>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
@@ -28,7 +28,9 @@
       </div>
     </div>
     <!-- jumbotron -->
-    <b-jumbotron lead="welcome to your connected user !"> </b-jumbotron>
+    <b-jumbotron lead="Welcome to your connected user ! "
+      ><h3 id="usName">{{ userName }} </h3></b-jumbotron
+    >
     <!-- tab -->
     <div>
       <div id="myTab">
@@ -53,6 +55,13 @@ export default {
   components: {
     ContactList,
     AddContactForm,
+  },
+  computed: {
+    userName() {
+      let temp = this.$store.state.name;
+      return temp.charAt(0).toUpperCase() + temp.slice(1);
+    },
+
   },
 
   methods: {
@@ -79,5 +88,8 @@ export default {
   font-weight: bolder;
   font-size: 1.2em;
   font-style: italic;
+}
+#usName {
+  color: rgb(12, 144, 161);
 }
 </style>
