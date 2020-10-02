@@ -246,22 +246,24 @@ const appRouter = async function(app, connection) {
   //   });
   // });
 
-  // /****************** update email ==> /users/:email **********************/
-  // app.put("/users/:email", function(req, res) {
-  //   let email = JSON.stringify(req.params.email);
-  //   let specify = JSON.stringify(req.body.specify);
+  /****************** update email ==> /users/:email **********************/
+  app.put("/users/:email", function(req, res) {
+    let email = JSON.stringify(req.params.email);
+    let specify = JSON.stringify(req.body.specify);
+    console.log("SPE",specify);
+    console.log("@", email);
 
-  //   let updateEmail =
-  //     "UPDATE authentification.users SET email = " +
-  //     specify +
-  //     "WHERE email =" +
-  //     email +
-  //     ";";
-  //   connection.query(updateEmail, function(err, results) {
-  //     if (err) throw err;
-  //     res.send(results);
-  //   });
-  // });
+
+    let updateEmail =
+      "UPDATE authentification.contacts SET email = " +
+      specify +
+      "WHERE email = " +
+      email;
+    connection.query(updateEmail, function(err, results) {
+      if (err) throw err;
+      res.send(results);
+    });
+  });
 };
 
 module.exports = appRouter;

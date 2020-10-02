@@ -3,10 +3,13 @@
     <!-- navbar -->
     <div id="myNav">
       <div>
-        <b-navbar toggleable="lg" type="dark" variant="info" >
+        <b-navbar toggleable="lg" type="dark" variant="info">
           <b-navbar-brand href="#">Dashboard</b-navbar-brand>
           <b-navbar-nav>
-            <b-navba-brand id="nameUser" href="#" disabled> User: {{this.$store.state.name}}</b-navba-brand>
+            <b-navbar-brand id="nameUser" href="#" disabled>
+              <b-avatar variant="light"></b-avatar> :
+              {{ this.$store.state.name }}
+              </b-navbar-brand>
           </b-navbar-nav>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
@@ -54,7 +57,7 @@ export default {
   methods: {
     deleteToken() {
       this.$store.dispatch("DELETE_TOKEN");
-      this.$store.dispatch("DELETE_CONTACT")
+      this.$store.dispatch("DELETE_CONTACT");
       this.$router.push("/");
     },
   },
@@ -71,9 +74,9 @@ export default {
   margin-left: 20vw;
   margin-right: 20vw;
 }
-#nameUser{
+#nameUser {
   font-weight: bolder;
   font-size: 1.2em;
-  font-style:italic;
+  font-style: italic;
 }
 </style>

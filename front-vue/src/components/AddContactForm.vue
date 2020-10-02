@@ -49,8 +49,6 @@ export default {
     async onSubmit(evt) {
       evt.preventDefault();
       this.form.id_user_affiliate = this.$store.state.id;
-
-
       //Headers of request with token
       let yourConfig = {
         headers: {
@@ -114,8 +112,7 @@ export default {
         yourConfig
       )
       .then(function (response) {
-        that.listOfContact = response.data;
-        console.log("list of contact - add contact :", that.listOfContact);
+        that.$store.state.contact = response.data;
       })
       .catch(function (error) {
         console.log(error);
