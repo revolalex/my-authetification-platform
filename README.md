@@ -36,7 +36,7 @@ node index.js
 
 ## Screenshots
 <br>
-<img width="500" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94253468-a710f280-ff25-11ea-9418-847375f70868.gif">
+<img width="800" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94950244-9db5f600-04e2-11eb-8206-4bd215827593.gif">
 <br>
 
 Database:
@@ -106,7 +106,7 @@ Finally the user can logout (no acces to dashboard).
 
  
 ## Status
-Project is:  _finished_
+Project is:  _In progress_
 
 
 ## Contact	
