@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b-alert v-model="showPassAlert" variant="danger" dismissible>
+    <b-alert v-model="showPassAlert" variant="info" dismissible>
       Paswword incorrect !
     </b-alert>
-      <b-alert v-model="showEmailAlert" variant="danger" dismissible>
+      <b-alert v-model="showEmailAlert" variant="warning" dismissible>
       Email incorrect !
     </b-alert>
 

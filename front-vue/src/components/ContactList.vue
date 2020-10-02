@@ -17,7 +17,7 @@
         <b-col sm >
           <b-form-input
             v-model="newEmail[element.email]"
-            placeholder="Type new email"
+            placeholder="new email"
           ></b-form-input>
         </b-col>
         <b-col sm >
@@ -31,7 +31,7 @@
             "
             title="Change Email"
             @click="setEmail(element.email)"
-            >Change Email
+            >Set Email
           </b-button>
         </b-col>
         <!-- delete contact -->
