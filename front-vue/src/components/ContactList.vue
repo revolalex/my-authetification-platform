@@ -6,20 +6,21 @@
         v-for="element in this.$store.state.contact"
         :key="element.id"
       >
-        <b-col
+        <b-col sm
           ><span> Prénom: <br /> </span> {{ element.name }}</b-col
         >
-        <b-col
+        
+        <b-col sm
           ><span> Email:<br /> </span> {{ element.email }}</b-col
         >
         <!-- change email  -->
-        <b-col >
+        <b-col sm >
           <b-form-input
             v-model="newEmail[element.email]"
             placeholder="Type new email"
           ></b-form-input>
         </b-col>
-        <b-col >
+        <b-col sm >
           <b-button
             id="myBtn"
             pill
@@ -34,7 +35,7 @@
           </b-button>
         </b-col>
         <!-- delete contact -->
-        <b-col>
+        <b-col sm>
           <b-button
             id="myBtn"
             pill
@@ -55,6 +56,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   name: "ContactList",
   data: function () {
@@ -158,12 +160,12 @@ export default {
   display: inline;
   margin: 1% 1% 1% 1%;
 }
-#deleteButton {
+/* #deleteButton {
   margin: 2%;
-}
+} */
 span {
   font-weight: bold;
   font-size: 1.1em;
-  color: rgb(5, 128, 145);
+  color: rgb(12, 144, 161);
 }
 </style>

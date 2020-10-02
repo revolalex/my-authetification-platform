@@ -6,12 +6,10 @@
         label="Email address:"
         label-for="input-1"
         description="We'll never share your email with anyone else."
-        invalid-feedback="Valid email is required"
       >
         <b-form-input
-          :state="validateState('email')"
           id="input-1"
-          v-model="$v.form.email.$model"
+          v-model="form.email"
           type="email"
           required
           placeholder="Enter email"
@@ -20,12 +18,10 @@
 
       <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
         <b-form-input
-          :state="validateState('name')"
           id="input-2"
-          v-model="$v.form.name.$model"
+          v-model="form.name"
           required
           placeholder="Enter name"
-          invalid-feedback="Name is required, minimun 3 characters"
         ></b-form-input>
       </b-form-group>
 
@@ -36,10 +32,7 @@
 
 <script>
 import axios from "axios";
-import { validationMixin } from "vuelidate";
-import { required, minLength, email } from "vuelidate/lib/validators";
 export default {
-  mixins: [validationMixin],
   data() {
     return {
       form: {
@@ -49,31 +42,15 @@ export default {
       },
       contact: [],
       show: true,
-      yourConfig: {
+      yourConfig:{
         headers: {
           Authorization: "Bearer " + this.$store.state.token,
         },
-      },
+      }
     };
-  },
-    validations: {
-    form: {
-      email: {
-        required,
-        email: email,
-      },
-      name: {
-        required,
-        minLength: minLength(3),
-      },
-    },
   },
 
   methods: {
-    validateState(name) {
-      const { $dirty, $error } = this.$v.form[name];
-      return $dirty ? !$error : null;
-    },
     async onSubmit(evt) {
       evt.preventDefault();
       this.form.id_user_affiliate = this.$store.state.id;
@@ -81,11 +58,7 @@ export default {
 
       // Add new contact in DB
       await axios
-        .post(
-          `http://localhost:3000/add-new-contact`,
-          this.form,
-          this.yourConfig
-        )
+        .post(`http://localhost:3000/add-new-contact`, this.form, this.yourConfig)
         .then(function (response) {
           console.log("response", response);
           console.log("response headers", response.headers);
@@ -121,8 +94,6 @@ export default {
       // Reset our form values
       this.form.email = "";
       this.form.name = "";
-          // reset vuelidate error (red)
-          this.$v.$reset();
     },
   },
 

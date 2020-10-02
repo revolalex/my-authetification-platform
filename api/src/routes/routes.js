@@ -9,8 +9,6 @@ const saltRounds = 10;
 
 /*********************** FUNCTION GLOBAL ASYNC *************************/
 const appRouter = async function(app, connection) {
-
-
   /*********************** Check if user with this name already exist *************************/
   await app.use("/sign-up", (req, res, next) => {
     connection.query(
@@ -104,32 +102,7 @@ const appRouter = async function(app, connection) {
     });
   });
 
-  /****************** create Table "contacts" and columns ==> /createTable **********************/
-  await app.post("/createTable", function(req, res) {
-    let createTableCol =
-      "CREATE TABLE IF NOT EXISTS contacts ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(200) NOT NULL, id_user_affiliate VARCHAR(50))";
-    connection.query(createTableCol, function(err, results) {
-      if (err) throw err;
-      res.send(results);
-    });
-  });
-
-
-   /****************** create Table "users" and columns ==> /createTable **********************/
-   await app.post("/createTableUsers", function(req, res) {
-    let createTableCol =
-      "CREATE TABLE IF NOT EXISTS users ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(200) NOT NULL, pass VARCHAR(200))";
-    connection.query(createTableCol, function(err, results) {
-      if (err) throw err;
-      res.send(results);
-    });
-  });
-
-
-
-
-
- /*************************************** add new contact ************************************/
+  /*************************************** add new contact ************************************/
   await app.post("/add-new-contact", auth, function(req, res) {
     let name = req.body.name.toLowerCase();
     let email = req.body.email.toLowerCase();
@@ -141,7 +114,7 @@ const appRouter = async function(app, connection) {
     });
   });
 
- /*********************** get contact whith the users ID same as id_user_affiliat ***************/
+  /*********************** get contact whith the users ID same as id_user_affiliat ***************/
   await app.get("/get-contacts/:id", auth, function(req, res) {
     let x = req.params.id;
     let getAll = `SELECT contacts.name,contacts.email,contacts.id_user_affiliate 
@@ -153,9 +126,8 @@ const appRouter = async function(app, connection) {
     });
   });
 
-
-    // /************ delete user with this email ==> /users/:email **************/
-  await app.delete("/users/:email",auth, function(req, res) {
+  // /************ delete user with this email ==> /users/:email **************/
+  await app.delete("/users/:email", auth, function(req, res) {
     let email = req.params.email;
     let usersMailToDelete =
       "DELETE FROM authentification.contacts where email = ?";
@@ -171,14 +143,47 @@ const appRouter = async function(app, connection) {
     });
   });
 
+    /****************** update email ==> /users/:email **********************/
+    app.put("/users/:email", function(req, res) {
+      let email = JSON.stringify(req.params.email);
+      let specify = JSON.stringify(req.body.specify);
+      console.log("SPE", specify);
+      console.log("@", email);
+  
+      let updateEmail =
+        "UPDATE authentification.contacts SET email = " +
+        specify +
+        "WHERE email = " +
+        email;
+      connection.query(updateEmail, function(err, results) {
+        if (err) throw err;
+        res.send(results);
+      });
+    });
 
 
 
 
 
+  // /****************** create Table "contacts" and columns ==> /createTable **********************/
+  // await app.post("/createTable", function(req, res) {
+  //   let createTableCol =
+  //     "CREATE TABLE IF NOT EXISTS contacts ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(200) NOT NULL, id_user_affiliate VARCHAR(50))";
+  //   connection.query(createTableCol, function(err, results) {
+  //     if (err) throw err;
+  //     res.send(results);
+  //   });
+  // });
 
-
-
+  //  /****************** create Table "users" and columns ==> /createTable **********************/
+  //  await app.post("/createTableUsers", function(req, res) {
+  //   let createTableCol =
+  //     "CREATE TABLE IF NOT EXISTS users ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(200) NOT NULL, pass VARCHAR(200))";
+  //   connection.query(createTableCol, function(err, results) {
+  //     if (err) throw err;
+  //     res.send(results);
+  //   });
+  // });
 
   // /*********************** BONUS PART *************************/
   // /****************** get all database ==> /all **********************/
@@ -208,22 +213,6 @@ const appRouter = async function(app, connection) {
   //   });
   // });
 
-  // /************ delete user with this email ==> /users/:email **************/
-  // app.delete("/users/:email", function(req, res) {
-  //   let email = req.params.email;
-  //   let usersMailToDelete =
-  //     "DELETE FROM authentification.users where email = ?";
-  //   connection.query(usersMailToDelete, [email], function(err, results) {
-  //     if (err) throw err;
-  //     // handle unknown user
-  //     if (results.affectedRows > 0) {
-  //       console.log(results.affectedRows);
-  //       res.send("Users removed");
-  //     } else {
-  //       res.send("Unknown users");
-  //     }
-  //   });
-  // });
 
   // /****************** create a database ==> /createDB **********************/
   // app.post("/createDB", function(req, res) {
@@ -246,24 +235,7 @@ const appRouter = async function(app, connection) {
   //   });
   // });
 
-  /****************** update email ==> /users/:email **********************/
-  app.put("/users/:email", function(req, res) {
-    let email = JSON.stringify(req.params.email);
-    let specify = JSON.stringify(req.body.specify);
-    console.log("SPE",specify);
-    console.log("@", email);
 
-
-    let updateEmail =
-      "UPDATE authentification.contacts SET email = " +
-      specify +
-      "WHERE email = " +
-      email;
-    connection.query(updateEmail, function(err, results) {
-      if (err) throw err;
-      res.send(results);
-    });
-  });
 };
 
 module.exports = appRouter;
