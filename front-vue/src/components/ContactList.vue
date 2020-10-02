@@ -18,7 +18,6 @@
             v-model="newEmail[element.email]"
             placeholder="Type new email"
           ></b-form-input>
-
         </b-col>
         <b-col>
           <b-button
@@ -63,6 +62,12 @@ export default {
       listOfContact: [],
       mailToDelete: "",
       newEmail: {},
+      // header for token (back end use middleware)
+      yourConfig: {
+        headers: {
+          Authorization: "Bearer " + this.$store.state.token,
+        },
+      },
     };
   },
   methods: {
@@ -77,17 +82,12 @@ export default {
           console.log(error);
         });
 
-      let yourConfig = {
-        headers: {
-          Authorization: "Bearer " + this.$store.state.token,
-        },
-      };
       // for no problem of scope in the callback
       let that = this;
       await axios
         .get(
           `http://localhost:3000/get-contacts/${this.$store.state.id}`,
-          yourConfig
+          that.yourConfig
         )
         .then(function (response) {
           that.$store.state.contact = response.data;
@@ -98,14 +98,8 @@ export default {
     },
 
     async deleteContact(mailToDelete) {
-      let yourConfig = {
-        headers: {
-          Authorization: "Bearer " + this.$store.state.token,
-        },
-      };
-
       await axios
-        .delete(`http://localhost:3000/users/${mailToDelete}`, yourConfig)
+        .delete(`http://localhost:3000/users/${mailToDelete}`, this.yourConfig)
         .then(function (response) {
           console.log(response);
         })
@@ -119,7 +113,7 @@ export default {
       await axios
         .get(
           `http://localhost:3000/get-contacts/${this.$store.state.id}`,
-          yourConfig
+          that.yourConfig
         )
         .then(function (response) {
           that.$store.state.contact = response.data;
@@ -131,18 +125,12 @@ export default {
   },
 
   mounted() {
-    //Headers of request
-    let yourConfig = {
-      headers: {
-        Authorization: "Bearer " + this.$store.state.token,
-      },
-    };
     // for no problem of scope in the callback
     let that = this;
     axios
       .get(
         `http://localhost:3000/get-contacts/${this.$store.state.id}`,
-        yourConfig
+        that.yourConfig
       )
       .then(function (response) {
         that.listOfContact = response.data;
