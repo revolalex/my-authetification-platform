@@ -58,7 +58,7 @@ And the api end point are secure, check for token
 In the assets folder you can find a pdf with all the requierements ask.
 
 ## API
-```
+```js
 node index.js
 ```
 
@@ -70,7 +70,7 @@ node index.js
 This route is use to create an user.
 
 - crypt password:
-```
+```js
 // hash the password
 let pass = bcrypt.hashSync(passwordNotHash, saltRounds);
 ```
@@ -79,7 +79,7 @@ let pass = bcrypt.hashSync(passwordNotHash, saltRounds);
 This route is use to log in.
 
 - handle email error:
-```
+```js
 if (!Array.isArray(results) || !results.length) {
           console.log("email error");
           // res.status(401).send("Sorry, email incorrect");
@@ -88,7 +88,7 @@ if (!Array.isArray(results) || !results.length) {
 ```
 
 - token:
-```
+```js
 let token = jwt.sign(
   { email: email, name: name, id: id },
   config.secret,
@@ -99,7 +99,7 @@ let token = jwt.sign(
 ```
 
 - handle password error, check for token , and send token and authorization:
-```
+```js
  bcrypt.compare(pass, hash, function(err, result) {
        if (result == true) {
           // get the decoded payload ignoring signature, no secretOrPrivateKey needed
@@ -127,7 +127,7 @@ This route use sql request  for  return only  the contacts  who  belongs  to the
 
 - mysql inner join.
 
-```
+```js
   /*********************** get contact whith the users ID same as id_user_affiliat ***************/
   await app.get("/get-contacts/:id", auth, function(req, res) {
     let userId = req.params.id;
@@ -142,7 +142,7 @@ This route use sql request  for  return only  the contacts  who  belongs  to the
 ```
   
 ### midlleware to check token (very basic one)
-```
+```js
 const jwt = require('jsonwebtoken');
 const config = require("../modules/config");
 
@@ -166,13 +166,13 @@ module.exports  = (req, res, next) => {
 ```
 
 - then to import :
-```
+```js
 const auth = require("../middleware/auth");
 ```
 
 - then to use: 
 put "auth" just after your end point adress in your request.
-```
+```js
 await app.post("/add-new-contact", auth, function(req, res) {}
 ```
 
@@ -194,18 +194,18 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 ### Vuelidate
 
 - import vuelidate in the component "SignUpForm.vue".
-```
+```js
 //vuelidate
 import { validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
 ```
 
 - in export default{}
-```
+```js
 mixins: [validationMixin],
 ```
 - and:
-```
+```js
  // vuelidate
   validations: {
     form: {
@@ -225,7 +225,7 @@ mixins: [validationMixin],
   },
 ```
 - finnaly in methods{}
-```
+```js
 validateState(name) {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
@@ -233,7 +233,7 @@ validateState(name) {
 ```
 
 - Example for email:
-```
+```js
 <b-form-group
   id="input-group-1"
   label="Email address:"
@@ -243,7 +243,7 @@ validateState(name) {
 
 - then
 
-```
+```js
 <b-form-input
   :state="validateState('email')"
   id="input-1"
@@ -253,20 +253,20 @@ validateState(name) {
 </b-form-input>
 ```
 - tips: to reset vuelidate
-```
+```js
 this.$v.$reset()
 ```
 ### Persisted State
 
 - In the store import persistedstate
 
-```
+```js
 import createPersistedState from "vuex-persistedstate";
 ````
 
 - And pass it in vuex store
 
-```
+```js
 let store = new Vuex.Store({
   state: state,
   mutations: mutations,
@@ -280,7 +280,7 @@ let store = new Vuex.Store({
 
 - During the axios post request in components "SignInForm.vue" stock the token in state (thank vuex)
 
-```
+```js
 if (response.data.auth == true) {
    //to store in state the name, id and token 
    that.$store.dispatch("ADD_NAME", response.data.name);
@@ -296,20 +296,20 @@ if (response.data.auth == true) {
 Example of actions and mutation to store the token in state:
 
 - Actions:
-```
+```js
 ADD_TOKEN: (context, token) => {
     context.commit("ADDED_TOKEN", token);
 },
 ```
 - Mutations
-```
+```js
 ADDED_TOKEN: (state, token) => {
     state.token = token;
 },
 ```
 
 - State
-```
+```js
 let state = {
   token: false,
   name: "",
@@ -322,14 +322,14 @@ let state = {
 
 - import the needed components:
 
-```
+```js
 import Dashboard from "../components/Dashboard";
 import MyJumbotron from "../components/MyJumbotron";
 import AuthStore from "../components/AuthStore";
 ```
 
 - the routes:
-```
+```js
 const routes = [
   {
     path: "/dashboard",
@@ -342,7 +342,7 @@ const routes = [
 ```
 
 - handle acces to the routes:
-```
+```js
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   if (requiresAuth == true && AuthStore.state.token) {
@@ -360,12 +360,19 @@ router.beforeEach((to, from, next) => {
 
 ## Technologies
 * node.js
-* vue.js
+* mysql
 * SQL database
 * bcrypt
+* jsonwebtoken
 * express
-* mysql
-* jwt
+* middleware
+* vue.js
+* vuex
+* vueRouter
+* vuelidate
+* vue-axios
+* vuex-persistedstate
+* bootstrap-vue
 * ...
 
 
