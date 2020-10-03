@@ -18,6 +18,7 @@
 
 ## Table of contents
 * [General info](#general-info)
+* [API](#api)
 * [Screenshots](#screenshots)
 * [Technologies](#technologies)
 * [App](#app)
@@ -29,33 +30,126 @@
 ---
 In the assets folder you can find a pdf with all the requierements ask.
 
-### API
+## API
 ```
 node index.js
 ```
+
+### Structure
+<img  alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94991324-b2e26180-0582-11eb-8f45-d2a5369ad0f3.png">
+
+
+### /sign-up 
+This route is use to create an user
+
+- crypt password:
+```
+// hash the password
+let pass = bcrypt.hashSync(passwordNotHash, saltRounds);
+```
+
+### /sing-in   
+This route is use to log in.
+
+- handle email error:
+```
+if (!Array.isArray(results) || !results.length) {
+          console.log("email error");
+          // res.status(401).send("Sorry, email incorrect");
+          res.send("Sorry, email incorrect");
+}
+```
+- handle password error and check for token:
+```
+ bcrypt.compare(pass, hash, function(err, result) {
+       if (result == true) {
+          // get the decoded payload ignoring signature, no secretOrPrivateKey needed
+          var decoded = jwt.decode(token);
+          // get the decoded payload and header
+          var decoded = jwt.decode(token, { complete: true });
+          console.log("Header", decoded.header);
+          console.log("Payload", decoded.payload);
+          res.status(200).send({
+             auth: true,
+             token: token,
+             email: email,
+             name: name,
+             id: id,
+             });
+         } else {
+           console.log("pass error");
+           res.send("password error")
+         }
+ });
+```
+
+### /get-contacts/:id
+This route use sql request  for  return only  the contacts  who  belongs  to the connected  user.
+
+- mysql inner join.
+
+```
+  /*********************** get contact whith the users ID same as id_user_affiliat ***************/
+  await app.get("/get-contacts/:id", auth, function(req, res) {
+    let userId = req.params.id;
+    let getAll = `SELECT contacts.name,contacts.email,contacts.id_user_affiliate 
+    from users inner join contacts on users.id = 
+    contacts.id_user_affiliate where users.id = ${connection.escape(userId)}`;
+    connection.query(getAll, function(err, results) {
+      if (err) throw err;
+      res.send(results);
+    });
+  });
+```
+  
+### midlleware to check token (very basic one)
+```
+const jwt = require('jsonwebtoken');
+const config = require("../modules/config");
+
+module.exports  = (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, config.secret);
+    console.log(decodedToken);
+
+    if (token>0) {
+      console.log(token);
+    } else {
+      next();
+    }
+  } catch {
+    res.status(401).json({
+      error: new Error('Invalid request!')
+    });
+  }
+};
+```
+
+#### Then to import :
+```
+const auth = require("../middleware/auth");
+```
+
+#### Then to use: 
+put "auth" just aftre your end point adress in your request 
+```
+await app.post("/add-new-contact", auth, function(req, res) {}
+```
+### other routes
+- post    /add-new-contact  ==> to add a new contact
+- delete  /users/:email     ==> to delete an user with this email
+- put     /users/:email     ==> update email of the contact
+
+
+
+
+
 
 ## Screenshots
 <br>
 <img width="800" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94950244-9db5f600-04e2-11eb-8206-4bd215827593.gif">
 <br>
-
-Database:
-<br>
-<img width="500" alt="Capture d’écran 2020-09-16 à 21 21 15" src="https://user-images.githubusercontent.com/56839789/93382917-27b75b00-f863-11ea-825e-feb1db4a49ec.png">
-<br>
-
-Code:
-<br>
-<img width="500" alt="Capture d’écran 2020-09-16 à 21 22 56" src="https://user-images.githubusercontent.com/56839789/93382933-2e45d280-f863-11ea-9d58-a89839dced02.png">
-<br>
-
-Postman:
-<br>
-<img width="500" alt="Capture d’écran 2020-09-16 à 21 23 56" src="https://user-images.githubusercontent.com/56839789/93382942-3140c300-f863-11ea-8a91-057acdb24c98.png">
-<br>
-
-
-
 
 
 ## Technologies
@@ -71,16 +165,19 @@ Postman:
 
 
 ## App
-This authentification app have three routes: 'sign-up' , 'sign-in' and 'dashboard'
+
+This authentification app crypt password and use token
  - You can create a user
  - You can authentifiate a register user
+ - A register user can add, delete a contact and update the contact email 
 
 The password is hash with bcrypt.
 <br>
-When an user sign-in with the token (jwt) we give him acces to "dashboard".
+When an user sign-in with the token (jwt) we give him acces to "dashboard", where he can manage his contact
 <br>
 Finally the user can logout (no acces to dashboard).
 <br>
+And the api end point are secure, check for token
  
  ## Pratice
 <ul>
@@ -90,20 +187,18 @@ Finally the user can logout (no acces to dashboard).
  <li>Vue-router
  <li>Vuex
  <li>vuex-persistedstate
+ <li>Vuelidate
  <li>Bootstrap.vue
  <li>API
  <li>Express
  <li>MySQL database 
  <li>bcrypt (hash, salt)
  <li>JWT (jsonwebtoken)
+ <li>Middleware
  <li>Postman
-
- 
+ <li>...
 </ul>
  
- 
-
-
  
 ## Status
 Project is:  _In progress_
