@@ -17,6 +17,7 @@
 > My first system of authentification
 
 ## Table of contents
+* [App](#app)
 * [Screenshots](#screenshots)
 * [General info](#general-info)
 * [API](#api)
@@ -27,10 +28,24 @@
 * [Vuex](#vuex)
 * [VueRouter](#vuerouter)
 * [Technologies](#technologies)
-* [App](#app)
 * [Pratice](#pratice)
 * [Difficulty](#Difficulty)
 * [Contact](#contact)
+
+## App
+
+This authentification app crypt password and use token
+ - You can create a user
+ - You can authentifiate a register user
+ - A register user can add, delete a contact and update the contact email 
+
+The password is hash with bcrypt.
+<br>
+When an user sign-in with the token (jwt) we give him acces to "dashboard", where he can manage his contact
+<br>
+Finally the user can logout (no acces to dashboard).
+<br>
+And the api end point are secure, check for token
 
 ## Screenshots
 <br>
@@ -52,7 +67,7 @@ node index.js
 
 
 ### /sign-up 
-This route is use to create an user
+This route is use to create an user.
 
 - crypt password:
 ```
@@ -150,16 +165,17 @@ module.exports  = (req, res, next) => {
 };
 ```
 
-#### Then to import :
+- then to import :
 ```
 const auth = require("../middleware/auth");
 ```
 
-#### Then to use: 
-put "auth" just aftre your end point adress in your request 
+- then to use: 
+put "auth" just after your end point adress in your request.
 ```
 await app.post("/add-new-contact", auth, function(req, res) {}
 ```
+
 ### other routes
 - post    /add-new-contact  ==> to add a new contact
 - delete  /users/:email     ==> to delete an user with this email
@@ -168,7 +184,7 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 
 
 ## Front
-> Vue.js Front-End
+> Vue.js Front-End.
 
 ### Structure
 <img  alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94993427-32772d00-0591-11eb-8f31-1e8b31cdd85c.png">
@@ -176,7 +192,7 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 
 ### Vuelidate
 
-- import vuelidate in the component "SignUpForm.vue"
+- import vuelidate in the component "SignUpForm.vue".
 ```
 //vuelidate
 import { validationMixin } from "vuelidate";
@@ -353,20 +369,7 @@ router.beforeEach((to, from, next) => {
 
 
 
-## App
 
-This authentification app crypt password and use token
- - You can create a user
- - You can authentifiate a register user
- - A register user can add, delete a contact and update the contact email 
-
-The password is hash with bcrypt.
-<br>
-When an user sign-in with the token (jwt) we give him acces to "dashboard", where he can manage his contact
-<br>
-Finally the user can logout (no acces to dashboard).
-<br>
-And the api end point are secure, check for token
  
  ## Pratice
 <ul>
