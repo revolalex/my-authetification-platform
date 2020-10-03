@@ -390,12 +390,12 @@ And the api end point are secure, check for token
 
  ## Difficulty
 <ul>
-<li>how to o make the project structure</li>
-<li>sql syntax</li>
-<li>create header for token</li>
-<li>create midlleware for token (but finally it's ok) </li>
-<li>vuelidate setting</li>
-<li>handle the acces of routes in vueRouter ==> router.beforeEach()</li>
+<li>How to o make the project structure</li>
+<li>Sql syntax</li>
+<li>Create header for token</li>
+<li>Create midlleware for token (but finally it's ok) </li>
+<li>Vuelidate setting</li>
+<li>Handle the acces of routes in vueRouter ==> router.beforeEach()</li>
 </ul>
  
  
