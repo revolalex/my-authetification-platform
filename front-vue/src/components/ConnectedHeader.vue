@@ -21,7 +21,7 @@
               @click="deleteToken"
               v-b-popover.hover.bottom="'Delete the token !'"
               title="Sign-Out"
-              >Sign-Out</b-button
+              >Sign-Out <b-icon icon="x-circle" variant="light" scale="1"></b-icon></b-button
             >
           </b-navbar-nav>
         </b-navbar>

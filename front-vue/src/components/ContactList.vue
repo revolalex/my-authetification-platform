@@ -1,56 +1,55 @@
 <template>
-  <div>
-    <b-container class="bv-example-row" fluid="xl">
-      <b-row
-        id="myListC"
+  <div class="mt-3">
+    <b-card-group columns>
+      <b-card
         v-for="element in this.$store.state.contact"
         :key="element.id"
+        border-variant="info"
+        header=""
+        align="center"
       >
-        <b-col sm
-          ><span> Prénom: <br /> </span> {{ element.name }}</b-col
-        >
-        
-        <b-col sm
-          ><span> Email:<br /> </span> {{ element.email }}</b-col
-        >
-        <!-- change email  -->
-        <b-col sm >
-          <b-form-input
-            v-model="newEmail[element.email]"
-            placeholder="new email"
-          ></b-form-input>
-        </b-col>
-        <b-col sm >
-          <b-button
-            id="myBtn"
-            pill
-            variant="info"
-            size="sm"
-            v-b-popover.hover.top="
-              'Are you sure you want to change the email contact'
-            "
-            title="Change Email"
-            @click="setEmail(element.email)"
-            >Set Email
-          </b-button>
-        </b-col>
-        <!-- delete contact -->
-        <b-col sm>
-          <b-button
-            id="myBtn"
-            pill
-            variant="danger"
-            size="sm"
-            @click="deleteContact(element.email)"
-            v-b-popover.hover.right="
-              'Are you sure you want to delete the contact'
-            "
-            title="Carrefull !"
-            >Delete
-          </b-button>
-        </b-col>
-      </b-row>
-    </b-container>
+        <b-card-header header-bg-variant="info" header-text-variant="white" id="spanName">
+          <span >
+            {{ element.name }}
+          </span>
+        </b-card-header>
+        <br>
+        <b-card-text> 
+          <b-icon icon="envelope" variant="warning" scale="1.3"></b-icon> 
+          <span id="spanEmail"> 
+            {{ element.email }}
+          </span>
+        </b-card-text>
+        <b-form-input v-model="newEmail[element.email]" placeholder="new email">
+        </b-form-input>
+        <br />
+        <b-button
+          id="myBtn"
+          pill
+          variant="warning"
+          size="sm"
+          v-b-popover.hover.bottom="
+            'Are you sure you want to change the email contact'
+          "
+          title="Change Email"
+          @click="setEmail(element.email)"
+          >Change Email
+        </b-button>
+        <hr />
+        <b-button
+          id="myBtn"
+          pill
+          variant="danger"
+          size="sm"
+          @click="deleteContact(element.email)"
+          v-b-popover.hover.right="
+            'Are you sure you want to delete the contact'
+          "
+          title="Carrefull !"
+          >  Delete <b-icon icon="trash" variant="info" scale="1"></b-icon>
+        </b-button>
+      </b-card>
+    </b-card-group>
   </div>
 </template>
 
@@ -72,6 +71,7 @@ export default {
       },
     };
   },
+
   methods: {
     async setEmail(oldEmail) {
       let specify = { specify: this.newEmail[oldEmail] };
@@ -142,30 +142,15 @@ export default {
       });
   },
 };
+
 </script>
 
 <style>
-
-#myListC {
-  text-align: left;
-  margin: 2% 2% 2% 2%;
-  border-radius: 10px 10px 10px 10px;
-  -moz-border-radius: 10px 10px 10px 10px;
-  -webkit-border-radius: 10px 10px 10px 10px;
-  border: 2px solid #000000;
-  padding: 1%;
+#spanEmail {
+  font-size: 1.3em;
 }
-#prenom,
-#email {
-  display: inline;
-  margin: 1% 1% 1% 1%;
-}
-/* #deleteButton {
-  margin: 2%;
-} */
-span {
-  font-weight: bold;
-  font-size: 1.1em;
-  color: rgb(12, 144, 161);
+#spanName {
+  font-size: 1.3em;
+  font-weight: 600;
 }
 </style>

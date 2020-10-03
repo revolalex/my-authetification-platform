@@ -14,7 +14,7 @@
           v-model="$v.form.email.$model"
           type="email"
           required
-          placeholder="Enter email"
+          placeholder="Enter email "
         ></b-form-input>
       </b-form-group>
 

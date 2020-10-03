@@ -41,12 +41,12 @@
         ></b-form-input>
       </b-form-group>
       <!-- button -->
-      <b-button type="submit" variant="success">Sign In </b-button>
+      <b-button type="submit" variant="success"> Sign In <b-icon icon="key" variant="light" scale="1"></b-icon></b-button>
     </b-form>
 
-    <b-card class="mt-3" header="Form Data Result">
+    <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
-    </b-card>
+    </b-card> -->
   </div>
 </template>
 
@@ -109,11 +109,11 @@ export default {
           if (response.data.auth == true) {
             console.log("sign-in", response);
             console.log("sign-in -> token", response.data.token);
-            //stock to store state
+            //stock to store state the name, id and token 
             that.$store.dispatch("ADD_NAME", response.data.name);
             that.$store.dispatch("ADD_ID", response.data.id);
             that.$store.dispatch("ADD_TOKEN", response.data.token);
-            // chage the route
+            //change the route
             that.$router.push("/Dashboard");
 
             //Headers of request with token

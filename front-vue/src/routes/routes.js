@@ -1,13 +1,11 @@
 import Dashboard from "../components/Dashboard";
 import MyJumbotron from "../components/MyJumbotron";
-// import ConnectedHeader from '../components/ConnectedHeader'
 import AuthStore from "../components/AuthStore";
 import Vue from "vue";
 import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-// diifferent routes
 const routes = [
   {
     path: "/dashboard",
@@ -15,11 +13,9 @@ const routes = [
     component: Dashboard,
     meta: { requiresAuth: true },
   },
-
   { path: "/", name: "MyJumbotron", component: MyJumbotron },
-  // { path: "/connect", name: "ConnectedHeader", component: ConnectedHeader },
 ];
-const router = new VueRouter({ routes, mode: 'history' });
+const router = new VueRouter({ routes, mode: "history" });
 
 // handle the acces to the routes check in all routes the meta requiresAuth
 router.beforeEach((to, from, next) => {

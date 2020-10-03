@@ -28,9 +28,9 @@ const appRouter = async function(app, connection) {
   await app.post("/sign-up", function(req, res) {
     let name = req.body.name.toLowerCase();
     let email = req.body.email.toLowerCase();
-    let passTemp = req.body.password;
+    let passwordNotHash = req.body.password;
     // hash the password
-    let pass = bcrypt.hashSync(passTemp, saltRounds);
+    let pass = bcrypt.hashSync(passwordNotHash, saltRounds);
     /********* The Users *************/
     const userObject = {
       name: name,
@@ -64,9 +64,7 @@ const appRouter = async function(app, connection) {
       connection.query(mailUser, [email], function(err, results, fields) {
         if (err) throw err;
         console.log("result sign-in ==>", results);
-     
         // handle email error
-        
         if (!Array.isArray(results) || !results.length) {
           console.log("email error");
           // res.status(401).send("Sorry, email incorrect");
@@ -115,9 +113,10 @@ const appRouter = async function(app, connection) {
   /*************************************** add new contact ************************************/
   await app.post("/add-new-contact", auth, function(req, res) {
     let name = req.body.name.toLowerCase();
+    let nameFirstLetterCapitalize = name.charAt(0).toUpperCase() + name.slice(1);
     let email = req.body.email.toLowerCase();
     let id_user_affiliate = req.body.id_user_affiliate;
-    let sql = `insert into contacts (name, email, id_user_affiliate) VALUES ('${name}', '${email}', '${id_user_affiliate}')`;
+    let sql = `insert into contacts (name, email, id_user_affiliate) VALUES ('${nameFirstLetterCapitalize}', '${email}', '${id_user_affiliate}')`;
     connection.query(sql, function(err, results) {
       if (err) throw err;
       res.status(200).send(results);
@@ -126,10 +125,10 @@ const appRouter = async function(app, connection) {
 
   /*********************** get contact whith the users ID same as id_user_affiliat ***************/
   await app.get("/get-contacts/:id", auth, function(req, res) {
-    let x = req.params.id;
+    let userId = req.params.id;
     let getAll = `SELECT contacts.name,contacts.email,contacts.id_user_affiliate 
     from users inner join contacts on users.id = 
-    contacts.id_user_affiliate where users.id = ${connection.escape(x)}`;
+    contacts.id_user_affiliate where users.id = ${connection.escape(userId)}`;
     connection.query(getAll, function(err, results) {
       if (err) throw err;
       res.send(results);

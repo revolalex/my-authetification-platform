@@ -1,11 +1,11 @@
 <template>
   <div>
     <b-alert v-model="showSuccesLogin" variant="success" dismissible>
-      You have been register, go Sign-in now !
+      <b-icon icon="emoji-smile" variant="success" scale="1.3"></b-icon> You have been register, go Sign-in now !
     </b-alert>
 
     <b-alert v-model="showNameAlert" variant="danger" dismissible>
-      this "user name" already exist
+      <b-icon icon="emoji-angry" variant="danger" scale="1.3"></b-icon>  this "user name" already exist
     </b-alert>
     <br />
 
@@ -57,12 +57,12 @@
         ></b-form-input>
       </b-form-group>
       <!-- button -->
-      <b-button type="submit" variant="success">Sign Up</b-button>
+      <b-button type="submit" variant="success"> Sign Up <b-icon icon="plus-circle" variant="light" scale="1"></b-icon></b-button>
     </b-form>
 
-    <b-card class="mt-3" header="Form Data Result">
+    <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
-    </b-card>
+    </b-card> -->
   </div>
 </template>
 
@@ -87,6 +87,7 @@ export default {
       showSuccesLogin: false,
     };
   },
+  // vuelidate
   validations: {
     form: {
       email: {
@@ -117,7 +118,7 @@ export default {
         .then(function (response) {
           console.log("response", response);
           if (response.status == 201) {
-            // will allow the alert to be visible
+            // will allow the succes alert to be visible
             that.showSuccesLogin = true;
           }
           if (response.status == 200) {

@@ -29,7 +29,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="success">Add</b-button>
+      <b-button type="submit" variant="success"><b-icon icon="person-plus-fill" variant="" scale="1"></b-icon> Add</b-button>
     </b-form>
   </div>
 </template>
@@ -146,7 +146,7 @@ export default {
 </script>
 <style>
 #addContact {
-  margin-right: 10vw;
-  margin-left: 10vw;
+  margin-right: 1vw;
+  margin-left: 1vw;
 }
 </style>
