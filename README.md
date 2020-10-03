@@ -65,7 +65,19 @@ if (!Array.isArray(results) || !results.length) {
           res.send("Sorry, email incorrect");
 }
 ```
-- handle password error and check for token:
+
+- token:
+```
+let token = jwt.sign(
+  { email: email, name: name, id: id },
+  config.secret,
+  {
+    expiresIn: 86400,
+  }
+);
+```
+
+- handle password error, check for token , and send token and authorization:
 ```
  bcrypt.compare(pass, hash, function(err, result) {
        if (result == true) {
@@ -165,7 +177,7 @@ import { required, minLength, email } from "vuelidate/lib/validators";
 ```
 mixins: [validationMixin],
 ```
-and:
+- and:
 ```
  // vuelidate
   validations: {
@@ -185,7 +197,7 @@ and:
     },
   },
 ```
-finnaly in methods{}
+- finnaly in methods{}
 ```
 validateState(name) {
       const { $dirty, $error } = this.$v.form[name];
@@ -201,7 +213,9 @@ validateState(name) {
   label-for="input-1"
   invalid-feedback="Valid email is required">
 ```
-then
+
+- then
+
 ```
 <b-form-input
   :state="validateState('email')"
@@ -211,10 +225,72 @@ then
   placeholder="Enter email">
 </b-form-input>
 ```
-tips: to reset vuelidate
+- tips: to reset vuelidate
 ```
 this.$v.$reset()
 ```
+### Persisted State
+
+- In the store import persistedstate
+
+```
+import createPersistedState from "vuex-persistedstate";
+````
+
+- And pass it in vuex store
+
+```
+let store = new Vuex.Store({
+  state: state,
+  mutations: mutations,
+  getters: getters,
+  actions: actions,
+  plugins: [createPersistedState()],
+});
+```
+
+### Token in Front
+
+- During the axios post request in components "SignInForm.vue" stock the token in state (thank vuex)
+
+```
+if (response.data.auth == true) {
+   //to store in state the name, id and token 
+   that.$store.dispatch("ADD_NAME", response.data.name);
+   that.$store.dispatch("ADD_ID", response.data.id);
+   that.$store.dispatch("ADD_TOKEN", response.data.token);
+   //change the route
+   that.$router.push("/Dashboard");
+}
+```
+
+### Vuex
+
+Example of actions and mutation to store the token in state:
+
+- Actions:
+```
+ADD_TOKEN: (context, token) => {
+    context.commit("ADDED_TOKEN", token);
+},
+```
+- Mutations
+```
+ADDED_TOKEN: (state, token) => {
+    state.token = token;
+},
+```
+
+- State
+```
+let state = {
+  token: false,
+  name: "",
+  id: "",
+  contact: [],
+};
+```
+
 
 
 
