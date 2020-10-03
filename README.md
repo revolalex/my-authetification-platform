@@ -23,7 +23,7 @@
 * [Front](#front)
 * [Vuelidate](#vuelidate)
 * [Persisted-state](#Persisted-state)
-* [Token-in-front](#token in front)
+* [Token in front](#token-in-front)
 * [Vuex](#vuex)
 * [VueRouter](#vuerouter)
 * [Technologies](#technologies)
