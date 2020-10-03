@@ -394,10 +394,11 @@ router.beforeEach((to, from, next) => {
 
  ## Difficulty
 <ul>
-<li>How to o make the project structure</li>
+<li>How to make the project structure</li>
 <li>Sql syntax</li>
 <li>Create header for token</li>
-<li>Create midlleware for token (but finally it's ok) </li>
+<li>Create midlleware for token</li>
+<li>Token in general (but finally it's ok)</li>
 <li>Vuelidate setting</li>
 <li>Handle the acces of routes in vueRouter ==> router.beforeEach()</li>
 </ul>
