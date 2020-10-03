@@ -49,7 +49,7 @@ And the api end point are secure, check for token
 
 ## Screenshots
 <br>
-<img width="800" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94991845-0904d400-0586-11eb-9b09-658d2c0fd6ed.gif">
+<img width="800" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/95002540-89065a80-05d5-11eb-811c-ab713d762eaf.gif">
 <br>
 
 ## General info
@@ -63,7 +63,7 @@ node index.js
 ```
 
 ### Structure
-<img  alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94991324-b2e26180-0582-11eb-8f45-d2a5369ad0f3.png">
+<img  alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94991324-b2e26180-0582-11eb-8f45-d2a5369ad0f3.png">
 
 
 ### /sign-up 
@@ -188,7 +188,7 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 > Vue.js Front-End.
 
 ### Structure
-<img  alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94993427-32772d00-0591-11eb-8f31-1e8b31cdd85c.png">
+<img  alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94993427-32772d00-0591-11eb-8f31-1e8b31cdd85c.png">
 
 
 ### Vuelidate
