@@ -148,7 +148,7 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 
 ## Screenshots
 <br>
-<img width="800" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94950244-9db5f600-04e2-11eb-8206-4bd215827593.gif">
+<img width="800" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94991845-0904d400-0586-11eb-9b09-658d2c0fd6ed.gif">
 <br>
 
 
