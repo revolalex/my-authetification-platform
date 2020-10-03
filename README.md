@@ -29,6 +29,7 @@
 * [Technologies](#technologies)
 * [App](#app)
 * [Pratice](#pratice)
+* [Difficulty](#Difficulty)
 * [Contact](#contact)
 
 ## Screenshots
@@ -169,7 +170,11 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 ## Front
 > Vue.js Front-End
 
-## Vuelidate
+### Structure
+<img  alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94993427-32772d00-0591-11eb-8f31-1e8b31cdd85c.png">
+
+
+### Vuelidate
 
 - import vuelidate in the component "SignUpForm.vue"
 ```
@@ -234,7 +239,7 @@ validateState(name) {
 ```
 this.$v.$reset()
 ```
-## Persisted State
+### Persisted State
 
 - In the store import persistedstate
 
@@ -254,7 +259,7 @@ let store = new Vuex.Store({
 });
 ```
 
-## Token in Front
+### Token in Front
 
 - During the axios post request in components "SignInForm.vue" stock the token in state (thank vuex)
 
@@ -269,7 +274,7 @@ if (response.data.auth == true) {
 }
 ```
 
-## Vuex
+### Vuex
 
 Example of actions and mutation to store the token in state:
 
@@ -296,7 +301,7 @@ let state = {
 };
 ```
 
-## VueRouter
+### VueRouter
 
 - import the needed components:
 
@@ -381,6 +386,16 @@ And the api end point are secure, check for token
  <li>Middleware
  <li>Postman
  <li>...
+</ul>
+
+ ## Difficulty
+<ul>
+<li>how to o make the project structure</li>
+<li>sql syntax</li>
+<li>create header for token</li>
+<li>create midlleware for token (but finally it's ok) </li>
+<li>vuelidate setting</li>
+<li>handle the acces of routes in vueRouter ==> router.beforeEach()</li>
 </ul>
  
  
