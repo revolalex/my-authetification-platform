@@ -21,6 +21,11 @@
 * [General info](#general-info)
 * [API](#api)
 * [Front](#front)
+* [Vuelidate](#vuelidate)
+* [Persistedstate](#Persistedstate)
+* [Tokeninfront](#tokeninfront)
+* [Vuex](#vuex)
+* [VueRouter](#vuerouter)
 * [Technologies](#technologies)
 * [App](#app)
 * [Pratice](#pratice)
@@ -164,7 +169,7 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 ## Front
 > Vue.js Front-End
 
-### vuelidate
+## Vuelidate
 
 - import vuelidate in the component "SignUpForm.vue"
 ```
@@ -229,7 +234,7 @@ validateState(name) {
 ```
 this.$v.$reset()
 ```
-### Persisted State
+## Persisted State
 
 - In the store import persistedstate
 
@@ -249,7 +254,7 @@ let store = new Vuex.Store({
 });
 ```
 
-### Token in Front
+## Token in Front
 
 - During the axios post request in components "SignInForm.vue" stock the token in state (thank vuex)
 
@@ -264,7 +269,7 @@ if (response.data.auth == true) {
 }
 ```
 
-### Vuex
+## Vuex
 
 Example of actions and mutation to store the token in state:
 
@@ -291,6 +296,42 @@ let state = {
 };
 ```
 
+## VueRouter
+
+- import the needed components:
+
+```
+import Dashboard from "../components/Dashboard";
+import MyJumbotron from "../components/MyJumbotron";
+import AuthStore from "../components/AuthStore";
+```
+
+- the routes:
+```
+const routes = [
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: Dashboard,
+    meta: { requiresAuth: true },
+  },
+  { path: "/", name: "MyJumbotron", component: MyJumbotron },
+];
+```
+
+- handle acces to the routes:
+```
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  if (requiresAuth == true && AuthStore.state.token) {
+    next();
+  } else if (requiresAuth == true && AuthStore.state.token == false) {
+    next({ name: "MyJumbotron" });
+  } else {
+    next();
+  }
+});
+```
 
 
 
