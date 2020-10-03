@@ -22,7 +22,7 @@
 * [API](#api)
 * [Front](#front)
 * [Vuelidate](#vuelidate)
-* [Persisted-state](#Persisted state)
+* [Persisted-state](#Persisted-state)
 * [Token-in-front](#token in front)
 * [Vuex](#vuex)
 * [VueRouter](#vuerouter)
