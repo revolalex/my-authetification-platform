@@ -181,7 +181,8 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 - delete  /users/:email     ==> to delete an user with this email
 - put     /users/:email     ==> update email of the contact
 
-
+<hr>
+<br>
 
 ## Front
 > Vue.js Front-End.
