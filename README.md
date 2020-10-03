@@ -17,13 +17,19 @@
 > My first system of authentification
 
 ## Table of contents
+* [Screenshots](#screenshots)
 * [General info](#general-info)
 * [API](#api)
-* [Screenshots](#screenshots)
+* [Front](#front)
 * [Technologies](#technologies)
 * [App](#app)
 * [Pratice](#pratice)
 * [Contact](#contact)
+
+## Screenshots
+<br>
+<img width="800" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94991845-0904d400-0586-11eb-9b09-658d2c0fd6ed.gif">
+<br>
 
 ## General info
 >Aim of the project, create a system of authentification using token, SQL databe, MAMP. 👩‍🎓 👨‍🎓 
@@ -143,13 +149,74 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 
 
 
+## Front
+> Vue.js Front-End
+
+### vuelidate
+
+- import vuelidate in the component "SignUpForm.vue"
+```
+//vuelidate
+import { validationMixin } from "vuelidate";
+import { required, minLength, email } from "vuelidate/lib/validators";
+```
+
+- in export default{}
+```
+mixins: [validationMixin],
+```
+and:
+```
+ // vuelidate
+  validations: {
+    form: {
+      email: {
+        required,
+        email: email,
+      },
+      name: {
+        required,
+        minLength: minLength(3),
+      },
+      password: {
+        required,
+        minLength: minLength(8),
+      },
+    },
+  },
+```
+finnaly in methods{}
+```
+validateState(name) {
+      const { $dirty, $error } = this.$v.form[name];
+      return $dirty ? !$error : null;
+},
+```
+
+- Example for email:
+```
+<b-form-group
+  id="input-group-1"
+  label="Email address:"
+  label-for="input-1"
+  invalid-feedback="Valid email is required">
+```
+then
+```
+<b-form-input
+  :state="validateState('email')"
+  id="input-1"
+  v-model="$v.form.email.$model"
+  type="email"
+  placeholder="Enter email">
+</b-form-input>
+```
+tips: to reset vuelidate
+```
+this.$v.$reset()
+```
 
 
-
-## Screenshots
-<br>
-<img width="800" alt="Capture d’écran 2020-09-24 à 17 10 31" src="https://user-images.githubusercontent.com/56839789/94991845-0904d400-0586-11eb-9b09-658d2c0fd6ed.gif">
-<br>
 
 
 ## Technologies
