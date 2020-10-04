@@ -201,7 +201,7 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 
 Editing  contact example:
 <br>
-  <img width="400" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95025737-45225c80-068c-11eb-92d6-84b233d659ad.gif">
+  <img width="800" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95025737-45225c80-068c-11eb-92d6-84b233d659ad.gif">
 
 <hr>
 <br>
