@@ -4,6 +4,8 @@
 ![](https://img.shields.io/badge/made%20with-Bootstrap_vue-blueviolet?logo=Bootstrap).
 ![](https://img.shields.io/badge/made%20with-mysql-blue?logo=mysql).
 ![](https://img.shields.io/badge/made%20with-jsonwebtokens-orange?logo=jsonwebtokens).
+![](https://img.shields.io/badge/made%20with-bcrypt-red?logo=letsencrypt).
+
 
 
 
