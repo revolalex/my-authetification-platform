@@ -34,7 +34,7 @@
 
 ## App
 
-This authentification app crypt password and use token
+This authentification app crypt password and use token identification
  - You can create a user
  - You can authentifiate a register user
  - A register user can add, delete a contact and update the contact email 
@@ -45,7 +45,7 @@ When an user sign-in with the token (jwt) we give him acces to "dashboard", wher
 <br>
 Finally the user can logout (no acces to dashboard).
 <br>
-And the api end point are secure, check for token
+And the API end point are secure, check for token (authentification midlleware)
 
 ## Screenshots
 <br>
@@ -53,7 +53,7 @@ And the api end point are secure, check for token
 <br>
 
 ## General info
->Aim of the project, create a system of authentification using token, SQL databe, MAMP. 👩‍🎓 👨‍🎓 
+>Aim of the project, create a system of authentification using SQL databe, b-crypt password, token identification, vue.js... 👩‍🎓 👨‍🎓 
 ---
 In the assets folder you can find a pdf with all the requierements ask.
 
@@ -84,6 +84,10 @@ let pass = bcrypt.hashSync(passwordNotHash, saltRounds);
 This route is use to log in.
 
 - handle email error:
+<br>
+  <img width="400" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95024961-87e13600-0686-11eb-9e20-63a6977ac676.png"> 
+  <br>
+
 ```js
 if (!Array.isArray(results) || !results.length) {
           console.log("email error");
@@ -103,15 +107,13 @@ let token = jwt.sign(
 );
 ```
 
-- handle password error, mail error, check for token , finally send token and authorization:
+- handle password error, check for token , finally send token and authorization:
 
 <br>
-<p float="left">
 
-  <img width="400" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95024961-87e13600-0686-11eb-9e20-63a6977ac676.png"> 
    <img width="400" alt="Capture d’écran 2020-10-04 à 21 15 49" src="https://user-images.githubusercontent.com/56839789/95024990-c971e100-0686-11eb-8bf2-0fbb780bb1e8.png">
 
-</p>
+
 
 ```js
  bcrypt.compare(pass, hash, function(err, result) {
