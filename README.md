@@ -109,11 +109,6 @@ let token = jwt.sign(
 
 - handle password error, check for token , finally send token and authorization:
 
-<br>
-
-   <img width="400" alt="Capture d’écran 2020-10-04 à 21 15 49" src="https://user-images.githubusercontent.com/56839789/95024990-c971e100-0686-11eb-8bf2-0fbb780bb1e8.png">
-
-
 
 ```js
  bcrypt.compare(pass, hash, function(err, result) {
@@ -137,12 +132,13 @@ let token = jwt.sign(
          }
  });
 ```
+<br>
+   <img width="400" alt="Capture d’écran 2020-10-04 à 21 15 49" src="https://user-images.githubusercontent.com/56839789/95024990-c971e100-0686-11eb-8bf2-0fbb780bb1e8.png">
+<br>
 
 ### /get-contacts/:id
+
 This route use sql request  for  return only  the contacts  who  belongs  to the connected  user.
-<br>
-<img width="400" alt="Capture d’écran 2020-10-04 à 21 11 29" src="https://user-images.githubusercontent.com/56839789/95024899-3a64c900-0686-11eb-879e-84c37e519f8a.png">
-<br>
 
 - mysql inner join.
 
@@ -159,6 +155,9 @@ This route use sql request  for  return only  the contacts  who  belongs  to the
     });
   });
 ```
+<br>
+<img width="400" alt="Capture d’écran 2020-10-04 à 21 11 29" src="https://user-images.githubusercontent.com/56839789/95024899-3a64c900-0686-11eb-879e-84c37e519f8a.png">
+<br>
   
 ### midlleware to check token (very basic one)
 ```js
@@ -216,7 +215,7 @@ Editing  contact example:
 
 ### Vuelidate
 
-<img width="600" alt="Capture d’écran 2020-10-04 à 21 20 51" src="https://user-images.githubusercontent.com/56839789/95025076-7ea49900-0687-11eb-81f6-0ecddd898c41.png">
+
 
 - import vuelidate in the component "SignUpForm.vue".
 ```js
@@ -281,6 +280,10 @@ validateState(name) {
 ```js
 this.$v.$reset()
 ```
+<br>
+<img width="600" alt="Capture d’écran 2020-10-04 à 21 20 51" src="https://user-images.githubusercontent.com/56839789/95025076-7ea49900-0687-11eb-81f6-0ecddd898c41.png">
+<br>
+
 ### Persisted State
 
 - In the store import persistedstate
