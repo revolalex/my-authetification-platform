@@ -81,9 +81,10 @@ export default {
   background: darkgreen;
 }
 #myTab {
-  margin-left: 20vw;
-  margin-right: 20vw;
+  margin-left: 15vw;
+  margin-right: 15vw;
 }
+
 #nameUser {
   font-weight: bolder;
   font-size: 1.2em;

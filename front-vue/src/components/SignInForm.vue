@@ -3,11 +3,12 @@
     <b-alert v-model="showPassAlert" variant="info" dismissible>
       Paswword incorrect !
     </b-alert>
-      <b-alert v-model="showEmailAlert" variant="warning" dismissible>
+    <b-alert v-model="showEmailAlert" variant="warning" dismissible>
       Email incorrect !
     </b-alert>
+    <h4 id="myHelp">Please enter your email and password</h4>
+    <br />
 
-    
     <b-form @submit="onSubmit" v-if="show">
       <!-- email -->
       <b-form-group
@@ -41,7 +42,9 @@
         ></b-form-input>
       </b-form-group>
       <!-- button -->
-      <b-button type="submit" variant="success"> Sign In <b-icon icon="key" variant="light" scale="1"></b-icon></b-button>
+      <b-button type="submit" variant="success">
+        Sign In <b-icon icon="key" variant="light" scale="1"></b-icon
+      ></b-button>
     </b-form>
 
     <!-- <b-card class="mt-3" header="Form Data Result">
@@ -67,7 +70,7 @@ export default {
       },
       show: true,
       showPassAlert: false,
-      showEmailAlert: false
+      showEmailAlert: false,
     };
   },
 
@@ -109,7 +112,7 @@ export default {
           if (response.data.auth == true) {
             console.log("sign-in", response);
             console.log("sign-in -> token", response.data.token);
-            //stock to store state the name, id and token 
+            //stock to store state the name, id and token
             that.$store.dispatch("ADD_NAME", response.data.name);
             that.$store.dispatch("ADD_ID", response.data.id);
             that.$store.dispatch("ADD_TOKEN", response.data.token);
@@ -155,3 +158,8 @@ export default {
   },
 };
 </script>
+<style>
+#myHelp{
+  color: rgb(12, 144, 161);
+}
+</style>

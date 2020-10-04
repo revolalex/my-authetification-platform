@@ -28,8 +28,8 @@
           pill
           variant="warning"
           size="sm"
-          v-b-popover.hover.bottom="
-            'Are you sure you want to change the email contact'
+          v-b-popover.hover.topright="
+            'Are you sure you want to change the email'
           "
           title="Change Email"
           @click="setEmail(element.email)"
@@ -42,11 +42,11 @@
           variant="danger"
           size="sm"
           @click="deleteContact(element.email)"
-          v-b-popover.hover.right="
+          v-b-popover.hover.bottomleft="
             'Are you sure you want to delete the contact'
           "
           title="Carrefull !"
-          >  Delete <b-icon icon="trash" variant="info" scale="1"></b-icon>
+          > Delete <b-icon icon="trash" variant="light" scale="1"></b-icon>
         </b-button>
       </b-card>
     </b-card-group>

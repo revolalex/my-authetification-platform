@@ -4,10 +4,11 @@
       <b-icon icon="emoji-smile" variant="success" scale="1.3"></b-icon> You have been register, go Sign-in now !
     </b-alert>
 
-    <b-alert v-model="showNameAlert" variant="danger" dismissible>
-      <b-icon icon="emoji-angry" variant="danger" scale="1.3"></b-icon>  this "user name" already exist
+    <b-alert v-model="showEmailAlert" variant="danger" dismissible>
+      <b-icon icon="emoji-angry" variant="danger" scale="1.3"></b-icon>  this "email" already exist
     </b-alert>
-    <br />
+    <h4 id="myHelp">Please fill this form to create an account</h4>
+    <br>
 
     <b-form @submit="onSubmit" v-if="show">
       <!-- name -->
@@ -122,7 +123,7 @@ export default {
             that.showSuccesLogin = true;
           }
           if (response.status == 200) {
-            that.showNameAlert = true;
+            that.showEmailAlert = true;
           }
           // reset the input
           that.form.name = "";
@@ -144,11 +145,5 @@ export default {
 };
 </script>
 <style>
-#registerOk {
-  text-align: left;
-  color: rgb(32, 212, 32);
-}
-#nameAlreadyUse {
-  color: rgb(199, 22, 22);
-}
+
 </style>

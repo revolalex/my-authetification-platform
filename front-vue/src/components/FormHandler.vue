@@ -28,4 +28,5 @@ export default {
   padding-left: 15vw;
   padding-right: 15vw;
 }
+
 </style>

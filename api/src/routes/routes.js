@@ -12,11 +12,11 @@ const appRouter = async function(app, connection) {
   /*********************** Check if user with this name already exist *************************/
   await app.use("/sign-up", (req, res, next) => {
     connection.query(
-      `SELECT * FROM users WHERE name = '${req.body.name}'`,
+      `SELECT * FROM users WHERE email = '${req.body.email}'`,
       (err, results) => {
         if (err) throw err;
         if (results.length > 0) {
-          res.status(200).send("this USER NAME already exist");
+          res.status(200).send("this EMAIL already exist");
         } else {
           next();
         }
