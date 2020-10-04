@@ -67,6 +67,8 @@ node index.js
 
 
 ### /sign-up 
+
+<img width="400" alt="capture ecran" src="https://user-images.githubusercontent.com/56839789/95025619-74849980-068b-11eb-9992-bc0f608a0bae.gif">
 This route is use to create an user.
 
 - crypt password:
@@ -76,6 +78,9 @@ let pass = bcrypt.hashSync(passwordNotHash, saltRounds);
 ```
 
 ### /sing-in   
+
+<img width="400" alt="capture ecran" src="https://user-images.githubusercontent.com/56839789/95025702-fa084980-068b-11eb-8563-d36164e815ea.gif">
+
 This route is use to log in.
 
 - handle email error:
@@ -102,9 +107,9 @@ let token = jwt.sign(
 
 <br>
 <p float="left">
- Email:
-  <img width="400" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95024961-87e13600-0686-11eb-9e20-63a6977ac676.png">
- Password: <img width="400" alt="Capture d’écran 2020-10-04 à 21 15 49" src="https://user-images.githubusercontent.com/56839789/95024990-c971e100-0686-11eb-8bf2-0fbb780bb1e8.png">
+
+  <img width="400" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95024961-87e13600-0686-11eb-9e20-63a6977ac676.png"> 
+   <img width="400" alt="Capture d’écran 2020-10-04 à 21 15 49" src="https://user-images.githubusercontent.com/56839789/95024990-c971e100-0686-11eb-8bf2-0fbb780bb1e8.png">
 
 </p>
 
@@ -134,7 +139,7 @@ let token = jwt.sign(
 ### /get-contacts/:id
 This route use sql request  for  return only  the contacts  who  belongs  to the connected  user.
 <br>
-<img width="600" alt="Capture d’écran 2020-10-04 à 21 11 29" src="https://user-images.githubusercontent.com/56839789/95024899-3a64c900-0686-11eb-879e-84c37e519f8a.png">
+<img width="400" alt="Capture d’écran 2020-10-04 à 21 11 29" src="https://user-images.githubusercontent.com/56839789/95024899-3a64c900-0686-11eb-879e-84c37e519f8a.png">
 <br>
 
 - mysql inner join.
@@ -192,6 +197,10 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 - post    /add-new-contact  ==> to add a new contact
 - delete  /users/:email     ==> to delete an user with this email
 - put     /users/:email     ==> update email of the contact
+
+Editing  contact example:
+<br>
+  <img width="400" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95025737-45225c80-068c-11eb-92d6-84b233d659ad.gif">
 
 <hr>
 <br>
