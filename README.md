@@ -98,7 +98,16 @@ let token = jwt.sign(
 );
 ```
 
-- handle password error, check for token , and send token and authorization:
+- handle password error, mail error, check for token , finally send token and authorization:
+
+<br>
+<p float="left">
+ Email:
+  <img width="400" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95024961-87e13600-0686-11eb-9e20-63a6977ac676.png">
+ Password: <img width="400" alt="Capture d’écran 2020-10-04 à 21 15 49" src="https://user-images.githubusercontent.com/56839789/95024990-c971e100-0686-11eb-8bf2-0fbb780bb1e8.png">
+
+</p>
+
 ```js
  bcrypt.compare(pass, hash, function(err, result) {
        if (result == true) {
@@ -124,6 +133,9 @@ let token = jwt.sign(
 
 ### /get-contacts/:id
 This route use sql request  for  return only  the contacts  who  belongs  to the connected  user.
+<br>
+<img width="600" alt="Capture d’écran 2020-10-04 à 21 11 29" src="https://user-images.githubusercontent.com/56839789/95024899-3a64c900-0686-11eb-879e-84c37e519f8a.png">
+<br>
 
 - mysql inner join.
 
@@ -192,6 +204,8 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 
 
 ### Vuelidate
+
+<img width="600" alt="Capture d’écran 2020-10-04 à 21 20 51" src="https://user-images.githubusercontent.com/56839789/95025076-7ea49900-0687-11eb-81f6-0ecddd898c41.png">
 
 - import vuelidate in the component "SignUpForm.vue".
 ```js
@@ -381,22 +395,22 @@ router.beforeEach((to, from, next) => {
  
  ## Pratice
 <ul>
- <li>Node.js
- <li>Vue.js
- <li>Vue-axios
- <li>Vue-router
- <li>Vuex
- <li>vuex-persistedstate
- <li>Vuelidate
- <li>Bootstrap.vue
- <li>API
- <li>Express
- <li>MySQL database 
- <li>bcrypt (hash, salt)
- <li>JWT (jsonwebtoken)
- <li>Middleware
- <li>Postman
- <li>...
+ <li>Node.js and many module</li>
+ <li>Build an API</li>
+ <li>work with express</li>
+ <li>Database in mysql</li> 
+ <li>bcrypt (hash, salt)</li>
+ <li>JWT (jsonwebtoken)</li>
+ <li>How to make middleware and use them</li>
+ <li>Vue.js and vue CLI to create the prject</li>
+ <li>Vue-axios and how to connect back and front</li>
+ <li>Vue-router and how to handle the acces of route</li>
+ <li>Vuex and is fabulous store</li>
+ <li>vuex-persistedstate</li>
+ <li>Vuelidate so efficient</li>
+ <li>Bootstrap.vue make life easier</li>
+ <li>Postman for test the api</li>
+ <li>...</li>
 </ul>
 
  ## Difficulty
