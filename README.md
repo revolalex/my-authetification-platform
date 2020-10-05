@@ -87,9 +87,6 @@ let pass = bcrypt.hashSync(passwordNotHash, saltRounds);
 This route is use to log in.
 
 - handle email error:
-<br>
-  <img width="400" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95024961-87e13600-0686-11eb-9e20-63a6977ac676.png"> 
-  <br>
 
 ```js
 if (!Array.isArray(results) || !results.length) {
@@ -98,6 +95,11 @@ if (!Array.isArray(results) || !results.length) {
           res.send("Sorry, email incorrect");
 }
 ```
+
+<br>
+  <img width="400" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95024961-87e13600-0686-11eb-9e20-63a6977ac676.png"> 
+  <br>
+
 
 - token:
 ```js
