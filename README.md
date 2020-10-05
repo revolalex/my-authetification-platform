@@ -6,8 +6,7 @@
 ![](https://img.shields.io/badge/made%20with-jsonwebtokens-orange?logo=jsonwebtokens).
 ![](https://img.shields.io/badge/made%20with-bcrypt-red?logo=letsencrypt).
 
-
-
+<img src="https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fgithub.com%2Frevolalex%2Fmy-authetification-platform" alt="Hits">.
 
 <img src="https://img.shields.io/badge/vue.router-green.svg" alt="vue-router">.
 <img src="https://img.shields.io/badge/vuex-green.svg" alt="vuex">.
@@ -97,7 +96,7 @@ if (!Array.isArray(results) || !results.length) {
 ```
 
 <br>
-  <img width="400" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95024961-87e13600-0686-11eb-9e20-63a6977ac676.png"> 
+  <img width="400" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95024961-87e13600-0686-11eb-9e20-63a6977ac676.png"> 
   <br>
 
 
@@ -138,7 +137,7 @@ let token = jwt.sign(
  });
 ```
 <br>
-   <img width="400" alt="Capture d’écran 2020-10-04 à 21 15 49" src="https://user-images.githubusercontent.com/56839789/95024990-c971e100-0686-11eb-8bf2-0fbb780bb1e8.png">
+   <img width="400" alt="Capture d’écran 2020-10-04 à 21 15 49" src="https://user-images.githubusercontent.com/56839789/95024990-c971e100-0686-11eb-8bf2-0fbb780bb1e8.png">
 <br>
 
 ### /get-contacts/:id
@@ -161,7 +160,7 @@ This route use sql request  for  return only  the contacts  who  belongs  to the
   });
 ```
 <br>
-<img width="400" alt="Capture d’écran 2020-10-04 à 21 11 29" src="https://user-images.githubusercontent.com/56839789/95024899-3a64c900-0686-11eb-879e-84c37e519f8a.png">
+<img width="400" alt="Capture d’écran 2020-10-04 à 21 11 29" src="https://user-images.githubusercontent.com/56839789/95024899-3a64c900-0686-11eb-879e-84c37e519f8a.png">
 <br>
   
 ### midlleware to check token (very basic one)
@@ -206,7 +205,7 @@ await app.post("/add-new-contact", auth, function(req, res) {}
 
 Editing  contact example:
 <br>
-  <img width="800" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95025737-45225c80-068c-11eb-92d6-84b233d659ad.gif">
+  <img width="800" alt="Capture d’écran 2020-10-04 à 21 13 57" src="https://user-images.githubusercontent.com/56839789/95025737-45225c80-068c-11eb-92d6-84b233d659ad.gif">
 
 <hr>
 <br>
@@ -286,7 +285,7 @@ validateState(name) {
 this.$v.$reset()
 ```
 <br>
-<img width="600" alt="Capture d’écran 2020-10-04 à 21 20 51" src="https://user-images.githubusercontent.com/56839789/95025076-7ea49900-0687-11eb-81f6-0ecddd898c41.png">
+<img width="600" alt="Capture d’écran 2020-10-04 à 21 20 51" src="https://user-images.githubusercontent.com/56839789/95025076-7ea49900-0687-11eb-81f6-0ecddd898c41.png">
 <br>
 
 ### Persisted State
