@@ -29,4 +29,7 @@ export default {
   justify-content: space-evenly;
   background: rgb(235, 232, 232);
 }
+body{
+  background-color: #E9ECEF;
+}
 </style>

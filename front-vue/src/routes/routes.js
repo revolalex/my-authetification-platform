@@ -6,7 +6,6 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-// diifferent routes
 const routes = [
   {
     path: "/dashboard",
@@ -14,12 +13,11 @@ const routes = [
     component: Dashboard,
     meta: { requiresAuth: true },
   },
-
   { path: "/", name: "MyJumbotron", component: MyJumbotron },
 ];
-const router = new VueRouter({ routes });
+const router = new VueRouter({ routes, mode: "history" });
 
-// handle the acces to the routes
+// handle the acces to the routes check in all routes the meta requiresAuth
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   if (requiresAuth == true && AuthStore.state.token) {
