@@ -60,10 +60,6 @@
       <!-- button -->
       <b-button type="submit" variant="success"> Sign Up <b-icon icon="plus-circle" variant="light" scale="1"></b-icon></b-button>
     </b-form>
-
-    <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card> -->
   </div>
 </template>
 
@@ -86,6 +82,7 @@ export default {
       // will allow the ok sentence to be visible
       showNameAlert: false,
       showSuccesLogin: false,
+      showEmailAlert: false
     };
   },
   // vuelidate
