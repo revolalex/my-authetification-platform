@@ -13,14 +13,14 @@
     <b-form @submit="onSubmit" v-if="show">
       <!-- name -->
       <b-form-group
-        id="input-group-2"
+        id="input-group-1"
         label="Your Name:"
-        label-for="input-2"
+        label-for="input-1"
         invalid-feedback="Name is required, and minimun 3 characters"
       >
         <b-form-input
           :state="validateState('name')"
-          id="input-2"
+          id="input-1"
           v-model="$v.form.name.$model"
           placeholder="Enter name"
         ></b-form-input>
@@ -28,14 +28,14 @@
 
       <!-- email -->
       <b-form-group
-        id="input-group-1"
+        id="input-group-2"
         label="Email address:"
-        label-for="input-1"
+        label-for="input-2"
         invalid-feedback="Valid email is required"
       >
         <b-form-input
           :state="validateState('email')"
-          id="input-1"
+          id="input-2"
           v-model="$v.form.email.$model"
           type="email"
           placeholder="Enter email"
@@ -44,14 +44,14 @@
 
       <!-- password -->
       <b-form-group
-        id="input-group-2"
+        id="input-group-3"
         label="Your Password:"
-        label-for="input-2"
+        label-for="input-3"
         invalid-feedback="Password is required, minimun 8 characters"
       >
         <b-form-input
           :state="validateState('password')"
-          id="input-2"
+          id="input-3"
           v-model="$v.form.password.$model"
           required
           placeholder="Enter password"
