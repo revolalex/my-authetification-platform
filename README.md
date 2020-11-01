@@ -1,6 +1,7 @@
 ![](https://img.shields.io/badge/made%20with-javaScript-yellow?logo=javaScript).
 ![](https://img.shields.io/badge/made%20with-node.js-success?logo=node.js).
 ![](https://img.shields.io/badge/made%20with-vue.js-green?logo=vue.js).
+![](https://img.shields.io/badge/made%20with-jest-red?logo=jest).
 ![](https://img.shields.io/badge/made%20with-Bootstrap_vue-blueviolet?logo=Bootstrap).
 ![](https://img.shields.io/badge/made%20with-mysql-blue?logo=mysql).
 ![](https://img.shields.io/badge/made%20with-jsonwebtokens-orange?logo=jsonwebtokens).
@@ -25,13 +26,13 @@
 * [API](#api)
 * [Front](#front)
 * [Vuelidate](#vuelidate)
-* [Persisted-state](#Persisted-state)
+* [Persisted-state](#persisted-state)
 * [Token in front](#token-in-front)
 * [Vuex](#vuex)
 * [VueRouter](#vuerouter)
 * [Technologies](#technologies)
 * [Pratice](#pratice)
-* [Difficulty](#Difficulty)
+* [Difficulty](#difficulty)
 * [Contact](#contact)
 
 ## App
